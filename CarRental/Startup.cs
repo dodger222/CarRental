@@ -25,6 +25,8 @@ namespace CarRental
 
             services.AddMvc();
             services.AddAutoMapper();
+
+            services.AddScoped<ICarRepository, CarRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

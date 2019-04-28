@@ -12998,11 +12998,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\DotNET\\CarRental\\CarRental\\CarRental.csproj",
+      "projectUniqueName": "F:\\Git\\CarRental\\CarRental\\CarRental.csproj",
       "projectName": "CarRental",
-      "projectPath": "F:\\DotNET\\CarRental\\CarRental\\CarRental.csproj",
+      "projectPath": "F:\\Git\\CarRental\\CarRental\\CarRental.csproj",
       "packagesPath": "C:\\Users\\dodge\\.nuget\\packages\\",
-      "outputPath": "F:\\DotNET\\CarRental\\CarRental\\obj\\",
+      "outputPath": "F:\\Git\\CarRental\\CarRental\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
