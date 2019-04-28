@@ -15,9 +15,29 @@ namespace CarRental.Persistence
             db = context;
         }
 
+        public List<User> GetUsers()
+        {
+            return db.Users.ToList();
+        }
+
         public User GetUser(int id)
         {
             return db.Users.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Add(User user)
+        {
+            db.Users.Add(user);
+        }
+
+        public void Remove(User user)
+        {
+            db.Remove(user);
+        }
+
+        public void Update(User user)
+        {
+            db.Update(user);
         }
     }
 }

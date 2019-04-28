@@ -13,20 +13,20 @@ namespace CarRental.Controllers
     [Route("api/users")]
     public class UserController : Controller
     {
-        CarRentalDbContext db;
         private readonly IMapper mapper;
         private readonly IUserRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public UserController(CarRentalDbContext context, IMapper mapper, IUserRepository repository)
+        public UserController(IUnitOfWork unitOfWork, IMapper mapper, IUserRepository repository)
         {
-            db = context;
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.repository = repository;
         }
         [HttpGet]
         public IEnumerable<UserResource> GetUsers()
         {
-            var users = db.Users.ToList();
+            var users = repository.GetUsers();
 
             return mapper.Map<List<User>, List<UserResource>>(users);
         }
@@ -56,8 +56,8 @@ namespace CarRental.Controllers
 
             var user = mapper.Map<UserResource, User>(userResource);
 
-            db.Users.Add(user);
-            db.SaveChanges();
+            repository.Add(user);
+            unitOfWork.Complete();
 
             user = repository.GetUser(user.Id);
 
@@ -82,8 +82,8 @@ namespace CarRental.Controllers
             }
 
             mapper.Map(userResource, user);
-            db.Update(user);
-            db.SaveChanges();
+            repository.Update(user);
+            unitOfWork.Complete();
 
             var result = mapper.Map<User, UserResource>(user);
 
@@ -91,19 +91,19 @@ namespace CarRental.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteUser(int id)
         {
-            var user = db.Users.FirstOrDefault(x => x.Id == id);
+            var user = repository.GetUser(id);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            db.Remove(user);
-            db.SaveChanges();
+            repository.Remove(user);
+            unitOfWork.Complete();
 
-            return Ok(user);
+            return Ok(id);
         }
     }
 }
