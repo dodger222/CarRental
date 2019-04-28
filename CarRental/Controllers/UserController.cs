@@ -15,11 +15,13 @@ namespace CarRental.Controllers
     {
         CarRentalDbContext db;
         private readonly IMapper mapper;
+        private readonly IUserRepository repository;
 
-        public UserController(CarRentalDbContext context, IMapper mapper)
+        public UserController(CarRentalDbContext context, IMapper mapper, IUserRepository repository)
         {
             db = context;
             this.mapper = mapper;
+            this.repository = repository;
         }
         [HttpGet]
         public IEnumerable<UserResource> GetUsers()
@@ -30,45 +32,77 @@ namespace CarRental.Controllers
         }
 
         [HttpGet("{id}")]
-        public User Get(int id)
+        public IActionResult GetUser(int id)
         {
-            User user = db.Users.FirstOrDefault(x => x.Id == id);
-            return user;
+            var user = repository.GetUser(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userResource = mapper.Map<User, UserResource>(user);
+
+            return Ok(userResource);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]User user)
+        public IActionResult CreateUser([FromBody]UserResource userResource)
         {
-            if(ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return Ok(user);
+                return BadRequest(ModelState);
             }
-            return BadRequest(ModelState);
+
+            var user = mapper.Map<UserResource, User>(userResource);
+
+            db.Users.Add(user);
+            db.SaveChanges();
+
+            user = repository.GetUser(user.Id);
+
+            var result = mapper.Map<User, UserResource>(user);
+
+            return Ok(result);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]User user)
+        public IActionResult UpdateUser(int id, [FromBody]UserResource userResource)
         {
-            if(ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Update(user);
-                db.SaveChanges();
-                return Ok(user);
+                return BadRequest(ModelState);
             }
-            return BadRequest(ModelState);
+
+            var user = repository.GetUser(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            mapper.Map(userResource, user);
+            db.Update(user);
+            db.SaveChanges();
+
+            var result = mapper.Map<User, UserResource>(user);
+
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            User user = db.Users.FirstOrDefault(x => x.Id == id);
-            if(user != null)
+            var user = db.Users.FirstOrDefault(x => x.Id == id);
+
+            if (user == null)
             {
-                db.Users.Remove(user);
-                db.SaveChanges();
+                return NotFound();
             }
+
+            db.Remove(user);
+            db.SaveChanges();
+
             return Ok(user);
         }
     }
