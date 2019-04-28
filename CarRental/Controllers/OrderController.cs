@@ -14,13 +14,15 @@ namespace CarRental.Controllers
     [Route("api/orders")]
     public class OrderController : Controller
     {
-        CarRentalDbContext db;
+        private readonly CarRentalDbContext db;
         private readonly IMapper mapper;
         private readonly IOrderRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public OrderController(CarRentalDbContext context, IMapper mapper, IOrderRepository repository)
+        public OrderController(CarRentalDbContext db, IUnitOfWork unitOfWork, IMapper mapper, IOrderRepository repository)
         {
-            db = context;
+            this.db = db;
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.repository = repository;
         }
@@ -58,8 +60,8 @@ namespace CarRental.Controllers
 
             var order = mapper.Map<OrderResource, Order>(orderResource);
 
-            db.Orders.Add(order);
-            db.SaveChanges();
+            repository.Add(order);
+            unitOfWork.Complete();
 
             order = repository.GetOrder(order.Id);
 
@@ -84,8 +86,8 @@ namespace CarRental.Controllers
             }
 
             mapper.Map(orderResource, order);
-            db.Update(order);
-            db.SaveChanges();
+            repository.Update(order);
+            unitOfWork.Complete();
 
             var result = mapper.Map<Order, OrderResource>(order);
 
@@ -95,48 +97,49 @@ namespace CarRental.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteOrder(int id)
         {
-            var order = db.Orders.FirstOrDefault(x => x.Id == id);
+            var order = repository.GetOrder(id);
 
             if (order == null)
             {
                 return NotFound();
             }
 
-            db.Remove(order);
-            db.SaveChanges();
+            repository.Remove(order);
+            unitOfWork.Complete();
 
-            return Ok(order);
+            return Ok(id);
         }
 
 
         // получение списка Номеров ВУ пользователей
-        private List<SelectListItem> GetUsers()
-        {
-            var users = db.Users.ToList();
-            List<SelectListItem> selectItems = new List<SelectListItem>();
+        //private List<SelectListItem> GetUsers()
+        //{
+        //    var users = db.Users.ToList();
+        //    List<SelectListItem> selectItems = new List<SelectListItem>();
 
-            foreach (var item in users)
-            {
-                selectItems.Add(new SelectListItem { Text = item.DriveLicenseNumber, Value = item.Id.ToString() });
-            }
+        //    foreach (var item in users)
+        //    {
+        //        selectItems.Add(new SelectListItem { Text = item.DriveLicenseNumber, Value = item.Id.ToString() });
+        //    }
 
-            return selectItems;
-        }
+        //    return selectItems;
+        //}
 
         // получение списка Регистрационных номеров автомобилей
-        private List<SelectListItem> GetAutos()
-        {
-            var cars = db.Cars.ToList();
-            List<SelectListItem> selectItems = new List<SelectListItem>();
+        //private List<SelectListItem> GetAutos()
+        //{
+        //    var cars = db.Cars.ToList();
+        //    List<SelectListItem> selectItems = new List<SelectListItem>();
 
-            foreach (var item in cars)
-            {
-                selectItems.Add(new SelectListItem { Text = item.RegistrationNumber, Value = item.Id.ToString() });
-            }
+        //    foreach (var item in cars)
+        //    {
+        //        selectItems.Add(new SelectListItem { Text = item.RegistrationNumber, Value = item.Id.ToString() });
+        //    }
 
-            return selectItems;
-        }
+        //    return selectItems;
+        //}
 
+        
         private List<ViewOrder> CreateViewOrderList(Filter filter)
         {
             var result = from o in db.Orders
