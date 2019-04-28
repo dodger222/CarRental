@@ -22,6 +22,9 @@
     <None Remove="ClientApp\app\order-form.component.ts" />
     <None Remove="ClientApp\app\order-list.component.ts" />
     <None Remove="ClientApp\app\order.ts" />
+    <None Remove="ClientApp\app\services\car.service.ts" />
+    <None Remove="ClientApp\app\services\order.service.ts" />
+    <None Remove="ClientApp\app\services\user.service.ts" />
     <None Remove="ClientApp\app\user-create.component.ts" />
     <None Remove="ClientApp\app\user-edit.component.ts" />
     <None Remove="ClientApp\app\user-form.component.ts" />
@@ -45,27 +48,29 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\app.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\app.module.ts" />
-    <TypeScriptCompile Include="ClientApp\app\car-create.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\car-edit.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\car-form.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\car-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\car-create\car-create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\car-edit\car-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\car-form\car-form.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\car-list\car-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\car.ts" />
-    <TypeScriptCompile Include="ClientApp\app\data.service.ts" />
-    <TypeScriptCompile Include="ClientApp\app\main-page.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\navmenu.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\order-create.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\order-edit.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\order-form.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\order-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\car.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\home\main-page.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\navmenu\navmenu.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\order-create\order-create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\order-edit\order-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\order-form\order-form.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\order-list\order-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\order.ts" />
-    <TypeScriptCompile Include="ClientApp\app\user-create.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\user-edit.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\user-form.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\user-list.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\order.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\user.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\user-create\user-create.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\user-edit\user-edit.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\user-form\user-form.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\user-list\user-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\user.ts" />
     <TypeScriptCompile Include="ClientApp\app\viewOrder.ts" />
     <TypeScriptCompile Include="ClientApp\main.ts" />
-    <TypeScriptCompile Include="ClientApp\app\not-found.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\not-found\not-found.component.ts" />
     <TypeScriptCompile Include="ClientApp\polyfills.ts" />
   </ItemGroup>
 

@@ -1,0 +1,36 @@
+﻿<div>
+    <a routerLink="/OrderCreate" class="btn btn-sm btn-primary">Добавить заказ</a>
+</div>
+<div class="well">
+    <div class="form-group">
+        <label for="userDriveLicenseNumber">Водительское удостоверение пользователя</label>
+        <select id="userDriveLicenseNumber" class="form-control" [(ngModel)]="filter.userId" (change)="onFilterChange()">
+            <option value="">all</option>
+            <option *ngFor="let u of users" value="{{u.id}}">{{u.firstName}} {{u.lastName}}</option>
+        </select>
+    </div>
+    <button class="btn btn-default" (click)="resetFilter()">Reset</button>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Пользователь</td>
+            <td>Автомобиль</td>
+            <td>Дата начала проката</td>
+            <td>Дата окончания проката</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let v of viewOrders">
+            <td>{{v?.userFirstName}}</td>
+            <td>{{v?.carMake}}</td>
+            <td>{{v?.startDate}}</td>
+            <td>{{v?.finalDate}}</td>
+            <td>
+                <a [routerLink]="['/OrderEdit', v.id]" class="btn btn-sm btn-primary">Изменить</a>
+                <button (click)="delete(v.id)" class="btn btn-sm btn-danger">Удалить</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

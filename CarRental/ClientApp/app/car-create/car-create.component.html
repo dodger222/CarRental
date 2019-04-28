@@ -1,0 +1,11 @@
+﻿<div>
+    <h2>Добавление нового автомобиля</h2>
+    <div *ngIf="isShowErrorMessage">
+        <p>{{errorMessage}}</p>
+    </div>
+    <car-form [(car)]="car"></car-form>
+    <div class="form-group">
+        <input type="button" value="Сохранить" (click)="save()" class="btn btn-success" />
+        <a routerLink="/CarList" class="btn btn-warning">Отмена</a>
+    </div>
+</div>
