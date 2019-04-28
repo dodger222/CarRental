@@ -13,20 +13,20 @@ namespace CarRental.Controllers
     [Route("api/cars")]
     public class CarController : Controller
     {
-        CarRentalDbContext db;
         private readonly IMapper mapper;
         private readonly ICarRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CarController(CarRentalDbContext context, IMapper mapper, ICarRepository repository)
+        public CarController(IUnitOfWork unitOfWork, IMapper mapper, ICarRepository repository)
         {
-            db = context;
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.repository = repository;
         }
         [HttpGet]
         public IEnumerable<CarResource> GetCars()
         {
-            var cars = db.Cars.ToList();
+            var cars = repository.GetCars();
 
             return mapper.Map<List<Car>, List<CarResource>>(cars);
         }
@@ -56,8 +56,8 @@ namespace CarRental.Controllers
 
             var car = mapper.Map<CarResource, Car>(carResource);
 
-            db.Cars.Add(car);
-            db.SaveChanges();
+            repository.Add(car);
+            unitOfWork.Complete();
 
             car = repository.GetCar(car.Id);
 
@@ -82,8 +82,8 @@ namespace CarRental.Controllers
             }
 
             mapper.Map(carResource, car);
-            db.Update(car);
-            db.SaveChanges();
+            repository.Update(car);
+            unitOfWork.Complete();
 
             var result = mapper.Map<Car, CarResource>(car);
 
@@ -93,15 +93,15 @@ namespace CarRental.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteCar(int id)
         {
-            var car = db.Cars.FirstOrDefault(x => x.Id == id);
+            var car = repository.GetCar(id);
 
             if(car == null)
             {
                 return NotFound();
             }
 
-            db.Remove(car);
-            db.SaveChanges();
+            repository.Remove(car);
+            unitOfWork.Complete();
 
             return Ok(car);
         }
