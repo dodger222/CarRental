@@ -1,10 +1,11 @@
 var Order = /** @class */ (function () {
-    function Order(id, userId, autoId, startDate, finalDate) {
+    function Order(id, userId, carId, startDate, finalDate, comment) {
         this.id = id;
         this.userId = userId;
-        this.autoId = autoId;
+        this.carId = carId;
         this.startDate = startDate;
         this.finalDate = finalDate;
+        this.comment = comment;
     }
     return Order;
 }());

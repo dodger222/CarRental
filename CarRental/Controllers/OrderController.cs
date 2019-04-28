@@ -16,11 +16,13 @@ namespace CarRental.Controllers
     {
         CarRentalDbContext db;
         private readonly IMapper mapper;
+        private readonly IOrderRepository repository;
 
-        public OrderController(CarRentalDbContext context, IMapper mapper)
+        public OrderController(CarRentalDbContext context, IMapper mapper, IOrderRepository repository)
         {
             db = context;
             this.mapper = mapper;
+            this.repository = repository;
         }
 
         [HttpGet]
@@ -31,55 +33,77 @@ namespace CarRental.Controllers
             return mapper.Map<List<ViewOrder>, List<ViewOrderResource>>(viewOrders);
         }
 
-        //[HttpGet]
-        //public List<ViewOrder> GetFilteredOrdersByName()
-        //{
-
-        //}
-
         [HttpGet("{id}")]
-        public Order Get(int id)
+        public IActionResult GetOrder(int id)
         {
-            Order order = db.Orders.FirstOrDefault(x => x.Id == id);
-            return order;
+            var order = repository.GetOrder(id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var orderResource = mapper.Map<Order, OrderResource>(order);
+
+            return Ok(orderResource);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]Order order)
+        public IActionResult CreateOrder([FromBody]OrderResource orderResource)
         {
-            if(ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Orders.Add(order);
-                db.SaveChanges();
-                return Ok(order);
+                return BadRequest(ModelState);
             }
 
-            return BadRequest(ModelState);
+            var order = mapper.Map<OrderResource, Order>(orderResource);
+
+            db.Orders.Add(order);
+            db.SaveChanges();
+
+            order = repository.GetOrder(order.Id);
+
+            var result = mapper.Map<Order, OrderResource>(order);
+
+            return Ok(result);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]Order order)
+        public IActionResult UpdateOrder(int id, [FromBody]OrderResource orderResource)
         {
-            if(ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Update(order);
-                db.SaveChanges();
-                return Ok(order);
+                return BadRequest(ModelState);
             }
 
-            return BadRequest(ModelState);
+            var order = repository.GetOrder(id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            mapper.Map(orderResource, order);
+            db.Update(order);
+            db.SaveChanges();
+
+            var result = mapper.Map<Order, OrderResource>(order);
+
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteOrder(int id)
         {
-            Order order = db.Orders.FirstOrDefault(x => x.Id == id);
+            var order = db.Orders.FirstOrDefault(x => x.Id == id);
 
-            if(order != null)
+            if (order == null)
             {
-                db.Orders.Remove(order);
-                db.SaveChanges();
+                return NotFound();
             }
+
+            db.Remove(order);
+            db.SaveChanges();
 
             return Ok(order);
         }

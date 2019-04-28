@@ -15,6 +15,7 @@ namespace CarRental.Mapping
             CreateMap<User, UserResource>();
             CreateMap<Car, CarResource>();
             CreateMap<ViewOrder, ViewOrderResource>();
+            CreateMap<Order, OrderResource>();
         }
     }
 }
