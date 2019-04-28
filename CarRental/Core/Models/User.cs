@@ -5,31 +5,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CarRental.Models
+namespace CarRental.Core.Models
 {
-    [Table("Cars")]
-    public class Car
+    [Table("Users")]
+    public class User
     {
         public int Id { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string Make { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string Model { get; set; }
+        public string FirstName { get; set; }
+
+        public DateTime BirthDate { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string CarClass { get; set; }
-
-        [Required]
-        [Range(1990, 2019)]
-        public int YearOfIssue { get; set; }
-
-        [Required]
-        [StringLength(255)]
-        public string RegistrationNumber { get; set; }
+        public string DriveLicenseNumber { get; set; }
     }
 }

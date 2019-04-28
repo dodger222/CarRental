@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CarRental.Models
+namespace CarRental.Core.Models
 {
     [Table("Orders")]
     public class Order

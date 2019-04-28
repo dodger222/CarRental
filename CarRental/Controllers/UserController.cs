@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CarRental.Controllers.Resources;
-using CarRental.Models;
-using CarRental.Persistence;
+using CarRental.Core.Models;
+using CarRental.Core;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using CarRental.Models;
+﻿using CarRental.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
