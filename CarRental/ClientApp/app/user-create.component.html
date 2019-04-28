@@ -1,0 +1,8 @@
+﻿<div>
+    <h2>Добавление нового пользователя</h2>
+    <user-form [(user)]="user"></user-form>
+    <div class="form-group">
+        <input type="button" value="Сохранить" (click)="save()" class="btn btn-success" />
+        <a routerLink="/UserList" class="btn btn-warning">Отмена</a>
+    </div>
+</div>

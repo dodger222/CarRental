@@ -1,0 +1,26 @@
+﻿<div>
+    <a routerLink="/UserCreate" class="btn btn-sm btn-primary">Добавить пользователя</a>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Фамилия</td>
+            <td>Имя</td>
+            <td>Дата рождения</td>
+            <td>Номер ВУ</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let u of users">
+            <td>{{u?.lastName}}</td>
+            <td>{{u?.firstName}}</td>
+            <td>{{u?.birthDate}}</td>
+            <td>{{u?.driveLicenseNumber}}</td>
+            <td>
+                <a [routerLink]="['/UserEdit', u.id]" class="btn btn-sm btn-primary">Изменить</a>
+                <button (click)="delete(u.id)" class="btn btn-sm btn-danger">Удалить</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

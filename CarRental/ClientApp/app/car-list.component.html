@@ -1,0 +1,28 @@
+﻿<div>
+    <a routerLink="/CarCreate" class="btn btn-sm btn-primary">Добавить автомобиль</a>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Марка</td>
+            <td>Модель</td>
+            <td>Класс</td>
+            <td>Год выпуска</td>
+            <td>Регистрационный номер</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of cars">
+            <td>{{c?.make}}</td>
+            <td>{{c?.model}}</td>
+            <td>{{c?.carClass}}</td>
+            <td>{{c?.yearOfIssue}}</td>
+            <td>{{c?.registrationNumber}}</td>
+            <td>
+                <a [routerLink]="['/CarEdit', c.id]" class="btn btn-sm btn-primary">Изменить</a>
+                <button (click)="delete(c.id)" class="btn btn-sm btn-danger">Удалить</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
