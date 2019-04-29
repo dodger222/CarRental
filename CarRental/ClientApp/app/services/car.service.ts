@@ -14,6 +14,14 @@ export class CarService {
         return this.http.get(this.carUrl);
     }
 
+    getCarsWithUniqueMake() {
+        return this.http.get(this.carUrl + '/' + encodeURIComponent('UniqueMake'));
+    }
+
+    getCarsWithUniqueModel() {
+        return this.http.get(this.carUrl + '/' + encodeURIComponent('UniqueModel'));
+    }
+
     getCar(id: number) {
         return this.http.get(this.carUrl + '/' + id);
     }

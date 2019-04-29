@@ -27,25 +27,31 @@ namespace CarRental.Persistence
 
             List<string> names = new List<string>();
 
-            foreach(var item in result)
+            foreach (var item in result)
             {
-                names.Add(item.FirstName);
-            }
+                int k = 0;
+                for (int i = 0; i < names.Count(); i++)
+                {
+                    if (names[i] == item.FirstName)
+                        k++;
+                }
 
-            names.Distinct();
+                if (k == 0)
+                    names.Add(item.FirstName);
+            }
 
             List<User> users = new List<User>();
 
-            foreach(string name in names)
+            foreach (string name in names)
             {
                 for (int i = 0; i < result.Count(); i++)
                 {
                     if (result[i].FirstName == name)
                     {
                         users.Add(result[i]);
+                        result = result.Where(x => x.FirstName != name).ToList();
                         break;
                     }
-
                 }
             }
 

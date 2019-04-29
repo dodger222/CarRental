@@ -31,6 +31,22 @@ namespace CarRental.Controllers
             return mapper.Map<List<Car>, List<CarResource>>(cars);
         }
 
+        [HttpGet("UniqueMake")]
+        public IEnumerable<CarResource> GetCarsWithUniqueMake(string unique)
+        {
+            var cars = repository.GetCarsWithUniqueMake();
+
+            return mapper.Map<List<Car>, List<CarResource>>(cars);
+        }
+
+        [HttpGet("UniqueModel")]
+        public IEnumerable<CarResource> GetCarsWithUniqueModel(string unique)
+        {
+            var cars = repository.GetCarsWithUniqueModel();
+
+            return mapper.Map<List<Car>, List<CarResource>>(cars);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetCar(int id)
         {

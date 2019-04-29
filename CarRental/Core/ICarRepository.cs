@@ -13,5 +13,7 @@ namespace CarRental.Core
         void Remove(Car car);
         void Update(Car car);
         List<Car> GetCars();
+        List<Car> GetCarsWithUniqueMake();
+        List<Car> GetCarsWithUniqueModel();
     }
 }

@@ -24,7 +24,8 @@ export class OrderListComponent implements OnInit {
     load() {
         this.populateViewOrders();
         this.userService.getUsersWithUniqueFirstnames().subscribe((data: User[]) => this.users = data);
-        this.carService.getCars().subscribe((data: Car[]) => this.cars = data);
+        this.carService.getCarsWithUniqueMake().subscribe((data: Car[]) => this.cars = data);
+        this.carService.getCarsWithUniqueModel().subscribe((data: Car[]) => this.cars = data);
     }
     delete(id: number) {
         this.orderService.deleteOrder(id).subscribe(data => this.load());

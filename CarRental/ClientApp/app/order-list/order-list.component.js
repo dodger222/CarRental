@@ -25,7 +25,8 @@ var OrderListComponent = /** @class */ (function () {
         var _this = this;
         this.populateViewOrders();
         this.userService.getUsersWithUniqueFirstnames().subscribe(function (data) { return _this.users = data; });
-        this.carService.getCars().subscribe(function (data) { return _this.cars = data; });
+        this.carService.getCarsWithUniqueMake().subscribe(function (data) { return _this.cars = data; });
+        this.carService.getCarsWithUniqueModel().subscribe(function (data) { return _this.cars = data; });
     };
     OrderListComponent.prototype.delete = function (id) {
         var _this = this;

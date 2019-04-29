@@ -17,6 +17,12 @@ var CarService = /** @class */ (function () {
     CarService.prototype.getCars = function () {
         return this.http.get(this.carUrl);
     };
+    CarService.prototype.getCarsWithUniqueMake = function () {
+        return this.http.get(this.carUrl + '/' + encodeURIComponent('UniqueMake'));
+    };
+    CarService.prototype.getCarsWithUniqueModel = function () {
+        return this.http.get(this.carUrl + '/' + encodeURIComponent('UniqueModel'));
+    };
     CarService.prototype.getCar = function (id) {
         return this.http.get(this.carUrl + '/' + id);
     };

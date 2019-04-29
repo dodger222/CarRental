@@ -190,7 +190,11 @@ namespace CarRental.Controllers
             {
                 viewOrders = viewOrders.Where(v => v.CarMake == filter.CarMake).ToList();
             }
-            
+            if (filter.CarModel != null)
+            {
+                viewOrders = viewOrders.Where(v => v.CarModel == filter.CarModel).ToList();
+            }
+
 
             return viewOrders;
         }
