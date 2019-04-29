@@ -48,7 +48,7 @@ var OrderListComponent = /** @class */ (function () {
     };
     OrderListComponent.prototype.sortBy = function (columnName) {
         if (this.query.sortBy === columnName) {
-            this.query.isSortAscending = false;
+            this.query.isSortAscending = !this.query.isSortAscending;
         }
         else {
             this.query.sortBy = columnName;

@@ -43,7 +43,14 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th (click)="sortBy('userLastName')">User's Last Name</th>
+            <th (click)="sortBy('userLastName')">
+                User's Last Name
+                <i *ngIf="query.sortBy === 'userLastName'"
+                   class="fa"
+                   [class.fa-sort-asc]="query.isSortAscending"
+                   [class.fa-sort-desc]="!query.isSortAscending">
+                </i>
+            </th>
             <th (click)="sortBy('userFirstName')">User's First Name</th>
             <th (click)="sortBy('carMake')">Car Make</th>
             <th (click)="sortBy('carModel')">Car Model</th>
