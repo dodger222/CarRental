@@ -18,8 +18,6 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderFormComponent } from './order-form/order-form.component';
-import { OrderCreateComponent } from './order-create/order-create.component';
-import { OrderEditComponent } from './order-edit/order-edit.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CarService } from './services/car.service';
 import { UserService } from './services/user.service';
@@ -34,8 +32,8 @@ var appRoutes = [
     { path: 'UserCreate', component: UserFormComponent },
     { path: 'UserEdit/:id', component: UserFormComponent },
     { path: 'OrderList', component: OrderListComponent },
-    { path: 'OrderCreate', component: OrderCreateComponent },
-    { path: 'OrderEdit/:id', component: OrderEditComponent },
+    { path: 'OrderCreate', component: OrderFormComponent },
+    { path: 'OrderEdit/:id', component: OrderFormComponent },
     { path: '**', component: NotFoundComponent }
 ];
 var AppModule = /** @class */ (function () {
@@ -44,9 +42,11 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         NgModule({
             imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
-            declarations: [AppComponent, MainPageComponent, CarListComponent, CarFormComponent,
-                UserListComponent, UserFormComponent, OrderListComponent, OrderCreateComponent, OrderEditComponent,
-                OrderFormComponent, NotFoundComponent, NavMenuComponent],
+            declarations: [AppComponent, MainPageComponent,
+                CarListComponent, CarFormComponent,
+                UserListComponent, UserFormComponent,
+                OrderListComponent, OrderFormComponent,
+                NotFoundComponent, NavMenuComponent],
             providers: [UserService, CarService, OrderService],
             bootstrap: [AppComponent]
         })

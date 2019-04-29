@@ -18,8 +18,6 @@ import { UserFormComponent } from './user-form/user-form.component';
 
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderFormComponent } from './order-form/order-form.component';
-import { OrderCreateComponent } from './order-create/order-create.component';
-import { OrderEditComponent } from './order-edit/order-edit.component';
 
 import { NotFoundComponent } from './not-found/not-found.component';
 
@@ -41,17 +39,19 @@ const appRoutes: Routes = [
     { path: 'UserEdit/:id', component: UserFormComponent },
 
     { path: 'OrderList', component: OrderListComponent },
-    { path: 'OrderCreate', component: OrderCreateComponent },
-    { path: 'OrderEdit/:id', component: OrderEditComponent },
+    { path: 'OrderCreate', component: OrderFormComponent },
+    { path: 'OrderEdit/:id', component: OrderFormComponent },
 
     { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
-    declarations: [AppComponent, MainPageComponent, CarListComponent, CarFormComponent,
-        UserListComponent, UserFormComponent, OrderListComponent, OrderCreateComponent, OrderEditComponent,
-        OrderFormComponent, NotFoundComponent, NavMenuComponent],
+    declarations: [AppComponent, MainPageComponent,
+        CarListComponent, CarFormComponent,
+        UserListComponent, UserFormComponent,
+        OrderListComponent, OrderFormComponent,
+        NotFoundComponent, NavMenuComponent],
     providers: [UserService, CarService, OrderService],
     bootstrap: [AppComponent]
 })

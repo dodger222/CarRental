@@ -1,26 +1,38 @@
-﻿<div class="form-group">
-    <label>Пользователь</label>
-    <select [(ngModel)]="order.userId">
-        <option *ngFor="let u of users" value="{{u.id}}">{{u.lastName}}</option>
-    </select>
-    <!--<input type="text" class="form-control" value="order.userId" />-->
-</div>
-<div class="form-group">
-    <label>Автомобиль</label>
-    <select [(ngModel)]="order.carId">
-        <option *ngFor="let c of cars" value="{{c.id}}">{{c.registrationNumber}}</option>
-    </select>
-    <!--<input type="text" [(ngModel)]="order.autoId" class="form-control" />-->
-</div>
-<div class="form-group">
-    <label>Дата начала проката</label>
-    <input type="text" [(ngModel)]="order.startDate" class="form-control" />
-</div>
-<div class="form-group">
-    <label>Дата окончания проката</label>
-    <input type="text" [(ngModel)]="order.finalDate" class="form-control" />
-</div>
-<div class="form-group">
-    <label>Комментарий</label>
-    <input type="text" [(ngModel)]="order.comment" class="form-control" />
+﻿<div>
+    <h2>Изменение данных о заказе</h2>
+    <form #f="ngForm" (ngSubmit)="submit()">
+        <div class="form-group">
+            <label>Пользователь</label>
+            <select class="form-control" [(ngModel)]="order.userId" name="userId" required #userId="ngModel">
+                <option *ngFor="let u of users" value="{{u.id}}">{{u.lastName}}</option>
+            </select>
+            <div class="alert alert-danger" *ngIf="userId.touched && !userId.valid">Please specify the user.</div>
+        </div>
+        <div class="form-group">
+            <label>Автомобиль</label>
+            <select class="form-control" [(ngModel)]="order.carId" name="carId" required #carId="ngModel">
+                <option *ngFor="let c of cars" value="{{c.id}}">{{c.registrationNumber}}</option>
+            </select>
+            <div class="alert alert-danger" *ngIf="carId.touched && !carId.valid">Please specify the car.</div>
+        </div>
+        <div class="form-group">
+            <label>Дата начала проката</label>
+            <input type="text" class="form-control" [(ngModel)]="order.startDate" name="startDate" required #startDate="ngModel" />
+            <div class="alert alert-danger" *ngIf="startDate.touched && !startDate.valid">Please specify the start date.</div>
+        </div>
+        <div class="form-group">
+            <label>Дата окончания проката</label>
+            <input type="text" class="form-control" [(ngModel)]="order.finalDate" name="finalDate" required #finalDate="ngModel" />
+            <div class="alert alert-danger" *ngIf="finalDate.touched && !finalDate.valid">Please specify the final date.</div>
+        </div>
+        <div class="form-group">
+            <label>Комментарий</label>
+            <input type="text" class="form-control" [(ngModel)]="order.comment" name="comment" required #comment="ngModel" />
+            <div class="alert alert-danger" *ngIf="comment.touched && !comment.valid">Please specify the comment.</div>
+        </div>
+        <div class="form-group">
+            <input type="button" value="Сохранить" (click)="save()" class="btn btn-success" [disabled]="!f.valid" />
+            <a routerLink="/OrderList" class="btn btn-warning">Отмена</a>
+        </div>
+    </form>
 </div>

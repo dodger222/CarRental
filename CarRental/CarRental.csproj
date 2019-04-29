@@ -54,8 +54,6 @@
     <TypeScriptCompile Include="ClientApp\app\services\car.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\home\main-page.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\navmenu\navmenu.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\order-create\order-create.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\order-edit\order-edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\order-form\order-form.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\order-list\order-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\order.ts" />
