@@ -14,8 +14,6 @@ import { NavMenuComponent } from './navmenu/navmenu.component';
 import { MainPageComponent } from './home/main-page.component';
 import { CarListComponent } from './car-list/car-list.component';
 import { CarFormComponent } from './car-form/car-form.component';
-import { CarCreateComponent } from './car-create/car-create.component';
-import { CarEditComponent } from './car-edit/car-edit.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserCreateComponent } from './user-create/user-create.component';
@@ -32,8 +30,8 @@ import { OrderService } from './services/order.service';
 var appRoutes = [
     { path: '', component: MainPageComponent },
     { path: 'CarList', component: CarListComponent },
-    { path: 'CarCreate', component: CarCreateComponent },
-    { path: 'CarEdit/:id', component: CarEditComponent },
+    { path: 'CarCreate', component: CarFormComponent },
+    { path: 'CarEdit/:id', component: CarFormComponent },
     { path: 'UserList', component: UserListComponent },
     { path: 'UserCreate', component: UserCreateComponent },
     { path: 'UserEdit/:id', component: UserEditComponent },
@@ -48,8 +46,8 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         NgModule({
             imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
-            declarations: [AppComponent, MainPageComponent, CarListComponent, CarCreateComponent, CarEditComponent,
-                CarFormComponent, UserListComponent, UserCreateComponent, UserEditComponent,
+            declarations: [AppComponent, MainPageComponent, CarListComponent, CarFormComponent,
+                UserListComponent, UserCreateComponent, UserEditComponent,
                 UserFormComponent, OrderListComponent, OrderCreateComponent, OrderEditComponent,
                 OrderFormComponent, NotFoundComponent, NavMenuComponent],
             providers: [UserService, CarService, OrderService],

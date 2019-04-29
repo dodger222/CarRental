@@ -7,20 +7,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CarService } from '../services/car.service';
 import { Car } from '../car';
 var CarFormComponent = /** @class */ (function () {
-    function CarFormComponent() {
+    function CarFormComponent(carService, router, activeRoute) {
+        this.carService = carService;
+        this.router = router;
+        this.car = new Car(); // добавляемый объект
+        this.loaded = false;
+        this.id = Number.parseInt(activeRoute.snapshot.params["id"]);
     }
-    __decorate([
-        Input(),
-        __metadata("design:type", Car)
-    ], CarFormComponent.prototype, "car", void 0);
+    CarFormComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        if (this.id)
+            this.carService.getCar(this.id)
+                .subscribe(function (data) {
+                _this.car = data;
+                if (_this.car != null)
+                    _this.loaded = true;
+            });
+    };
+    CarFormComponent.prototype.save = function () {
+        var _this = this;
+        if (this.id) {
+            this.carService.updateCar(this.car).subscribe(function (data) { return _this.router.navigateByUrl("/CarList"); });
+        }
+        else {
+            this.carService.createCar(this.car).subscribe(function (data) { return _this.router.navigateByUrl("/CarList"); });
+        }
+    };
     CarFormComponent = __decorate([
         Component({
-            selector: "car-form",
             templateUrl: './car-form.component.html'
-        })
+        }),
+        __metadata("design:paramtypes", [CarService, Router, ActivatedRoute])
     ], CarFormComponent);
     return CarFormComponent;
 }());

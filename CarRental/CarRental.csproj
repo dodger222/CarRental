@@ -48,8 +48,6 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\app.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\app.module.ts" />
-    <TypeScriptCompile Include="ClientApp\app\car-create\car-create.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\car-edit\car-edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\car-form\car-form.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\car-list\car-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\car.ts" />

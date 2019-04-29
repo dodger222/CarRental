@@ -1,20 +1,34 @@
-﻿<div class="form-group">
-    <label>Марка</label>
-    <input type="text" [(ngModel)]="car.make" class="form-control" />
-</div>
-<div class="form-group">
-    <label>Модель</label>
-    <input type="text" [(ngModel)]="car.model" class="form-control" />
-</div>
-<div class="form-group">
-    <label>Класс</label>
-    <input type="text" [(ngModel)]="car.carClass" class="form-control" />
-</div>
-<div class="form-group">
-    <label>Год выпуска</label>
-    <input type="text" [(ngModel)]="car.yearOfIssue" class="form-control" />
-</div>
-<div class="form-group">
-    <label>Регистрационный номер</label>
-    <input type="text" [(ngModel)]="car.registrationNumber" class="form-control" />
+﻿<div>
+    <h2>Добавление нового автомобиля</h2>
+    <form #f="ngForm" (ngSubmit)="submit()">
+        <div class="form-group">
+            <label>Марка</label>
+            <input type="text" class="form-control" [(ngModel)]="car.make" name="make" required #make="ngModel" />
+            <div class="alert alert-danger" *ngIf="make.touched && !make.valid">Please specify the make.</div>
+        </div>
+        <div class="form-group">
+            <label>Модель</label>
+            <input type="text" class="form-control" [(ngModel)]="car.model" name="model" required #model="ngModel" />
+            <div class="alert alert-danger" *ngIf="model.touched && !model.valid">Please specify the model.</div>
+        </div>
+        <div class="form-group">
+            <label>Класс</label>
+            <input type="text" class="form-control" [(ngModel)]="car.carClass" name="carClass" required #carClass="ngModel" />
+            <div class="alert alert-danger" *ngIf="carClass.touched && !carClass.valid">Please specify the car class.</div>
+        </div>
+        <div class="form-group">
+            <label>Год выпуска</label>
+            <input type="text" class="form-control" [(ngModel)]="car.yearOfIssue" name="yearOfIssue" required #yearOfIssue="ngModel" />
+            <div class="alert alert-danger" *ngIf="yearOfIssue.touched && !yearOfIssue.valid">Please specify the year of issue.</div>
+        </div>
+        <div class="form-group">
+            <label>Регистрационный номер</label>
+            <input type="text" class="form-control" [(ngModel)]="car.registrationNumber" name="registrationNumber" required #registrationNumber="ngModel" />
+            <div class="alert alert-danger" *ngIf="registrationNumber.touched && !registrationNumber.valid">Please specify the registration number.</div>
+        </div>
+        <div class="form-group">
+            <input type="button" value="Сохранить" (click)="save()" class="btn btn-success" [disabled]="!f.valid" />
+            <a routerLink="/CarList" class="btn btn-warning">Отмена</a>
+        </div>
+    </form>
 </div>
