@@ -12,18 +12,22 @@ namespace CarRental.Core.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [RegularExpression(@"^[A-Z]{1}[a-z]+$", ErrorMessage = "The 'Last Name' field must have only letters and begin with a capital letter.")]
         [StringLength(255)]
+        [Required]
         public string LastName { get; set; }
 
-        [Required]
+        [RegularExpression(@"^[A-Z]{1}[a-z]+$", ErrorMessage = "The 'First Name' field must have only letters and begin with a capital letter.")]
         [StringLength(255)]
+        [Required]
         public string FirstName { get; set; }
 
+        [Required]
         public DateTime BirthDate { get; set; }
 
         [Required]
         [StringLength(255)]
+        [RegularExpression(@"^\d{1}[A-Z]{2}\s{1}\d{6}$", ErrorMessage = "Формат номера ВУ: 1AA 111111")]
         public string DriveLicenseNumber { get; set; }
     }
 }
