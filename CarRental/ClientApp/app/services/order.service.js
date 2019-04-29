@@ -17,6 +17,12 @@ var OrderService = /** @class */ (function () {
     OrderService.prototype.getOrders = function (filter) {
         return this.http.get(this.orderUrl + '?' + this.toQueryString(filter));
     };
+    OrderService.prototype.getOrdersWithUniqueStartDate = function () {
+        return this.http.get(this.orderUrl + '/' + encodeURIComponent('UniqueStartDate'));
+    };
+    OrderService.prototype.getOrdersWithUniqueFinalDate = function () {
+        return this.http.get(this.orderUrl + '/' + encodeURIComponent('UniqueFinalDate'));
+    };
     OrderService.prototype.toQueryString = function (obj) {
         var parts = [];
         for (var property in obj) {

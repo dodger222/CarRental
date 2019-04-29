@@ -13,5 +13,7 @@ namespace CarRental.Core
         void Remove(Order order);
         void Update(Order order);
         List<Order> GetOrders();
+        List<Order> GetOrdersWithUniqueStartDate();
+        List<Order> GetOrdersWithUniqueFinalDate();
     }
 }

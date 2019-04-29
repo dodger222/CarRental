@@ -10,7 +10,7 @@ namespace CarRental.Controllers.Resources
         public string UserFirstName { get; set; }
         public string CarMake { get; set; }
         public string CarModel { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime FinalDate { get; set; }
+        public string StartDate { get; set; }
+        public string FinalDate { get; set; }
     }
 }

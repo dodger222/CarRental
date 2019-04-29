@@ -8,6 +8,6 @@
         public carMake?: string,
         public carModel?: string,
         public carRegistrationNumber?: string,
-        public startDate?: Date,
-        public finalDate?: Date) { }
+        public startDate?: string,
+        public finalDate?: string) { }
 }

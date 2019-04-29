@@ -27,6 +27,8 @@ var OrderListComponent = /** @class */ (function () {
         this.userService.getUsersWithUniqueFirstnames().subscribe(function (data) { return _this.users = data; });
         this.carService.getCarsWithUniqueMake().subscribe(function (data) { return _this.cars = data; });
         this.carService.getCarsWithUniqueModel().subscribe(function (data) { return _this.cars = data; });
+        this.orderService.getOrdersWithUniqueStartDate().subscribe(function (data) { return _this.orders = data; });
+        this.orderService.getOrdersWithUniqueFinalDate().subscribe(function (data) { return _this.orders = data; });
     };
     OrderListComponent.prototype.delete = function (id) {
         var _this = this;

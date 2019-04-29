@@ -14,6 +14,13 @@ export class OrderService {
         return this.http.get(this.orderUrl + '?' + this.toQueryString(filter));
     }
 
+    getOrdersWithUniqueStartDate() {
+        return this.http.get(this.orderUrl + '/' + encodeURIComponent('UniqueStartDate'));
+    }
+    getOrdersWithUniqueFinalDate() {
+        return this.http.get(this.orderUrl + '/' + encodeURIComponent('UniqueFinalDate'));
+    }
+
     toQueryString(obj: any) {
         var parts = [];
         for (var property in obj) {

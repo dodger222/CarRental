@@ -37,6 +37,22 @@ namespace CarRental.Controllers
             return mapper.Map<List<ViewOrder>, List<ViewOrderResource>>(viewOrders);
         }
 
+        [HttpGet("UniqueStartDate")]
+        public List<OrderResource> GetOrdersWithUniqueStartDate(string unique)
+        {
+            var orders = repository.GetOrdersWithUniqueStartDate();
+
+            return mapper.Map<List<Order>, List<OrderResource>>(orders);
+        }
+
+        [HttpGet("UniqueFinalDate")]
+        public List<OrderResource> GetOrdersWithUniqueFinalDate(string unique)
+        {
+            var orders = repository.GetOrdersWithUniqueFinalDate();
+
+            return mapper.Map<List<Order>, List<OrderResource>>(orders);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetOrder(int id)
         {
@@ -193,6 +209,14 @@ namespace CarRental.Controllers
             if (filter.CarModel != null)
             {
                 viewOrders = viewOrders.Where(v => v.CarModel == filter.CarModel).ToList();
+            }
+            if (filter.StartDate != null)
+            {
+                viewOrders = viewOrders.Where(v => v.StartDate.ToString() == filter.StartDate).ToList();
+            }
+            if (filter.FinalDate != null)
+            {
+                viewOrders = viewOrders.Where(v => v.FinalDate.ToString() == filter.FinalDate).ToList();
             }
 
 

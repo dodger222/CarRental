@@ -13,6 +13,7 @@ import { Car } from '../car';
 export class OrderListComponent implements OnInit {
     
     viewOrders: ViewOrder[];
+    orders: Order[];
     users: User[];
     cars: Car[];
     filter: any = {}
@@ -26,6 +27,8 @@ export class OrderListComponent implements OnInit {
         this.userService.getUsersWithUniqueFirstnames().subscribe((data: User[]) => this.users = data);
         this.carService.getCarsWithUniqueMake().subscribe((data: Car[]) => this.cars = data);
         this.carService.getCarsWithUniqueModel().subscribe((data: Car[]) => this.cars = data);
+        this.orderService.getOrdersWithUniqueStartDate().subscribe((data: Order[]) => this.orders = data);
+        this.orderService.getOrdersWithUniqueFinalDate().subscribe((data: Order[]) => this.orders = data);
     }
     delete(id: number) {
         this.orderService.deleteOrder(id).subscribe(data => this.load());

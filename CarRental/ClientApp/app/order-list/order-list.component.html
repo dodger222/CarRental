@@ -24,6 +24,20 @@
             <option *ngFor="let c of cars" value="{{c.model}}">{{c.model}}</option>
         </select>
     </div>
+    <div class="form-group">
+        <label for="startDate">Start date</label>
+        <select id="startDate" class="form-control" [(ngModel)]="filter.startDate" (change)="onFilterChange()">
+            <option value="">No filter</option>
+            <option *ngFor="let o of orders" value="{{o.startDate}}">{{o.startDate}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="finalDate">Final date</label>
+        <select id="finalDate" class="form-control" [(ngModel)]="filter.finalDate" (change)="onFilterChange()">
+            <option value="">No filter</option>
+            <option *ngFor="let o of orders" value="{{o.finalDate}}">{{o.finalDate}}</option>
+        </select>
+    </div>
     <button class="btn btn-default" (click)="resetFilter()">Reset</button>
 </div>
 <table class="table table-striped">
