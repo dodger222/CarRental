@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarService } from '../services/car.service';
 import { Car } from '../car';
@@ -6,7 +6,7 @@ import { Car } from '../car';
 @Component({
     templateUrl: './car-form.component.html'
 })
-export class CarFormComponent {
+export class CarFormComponent implements OnInit {
 
     id: number;
     car: Car = new Car();    // добавляемый объект

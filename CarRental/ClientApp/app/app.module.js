@@ -16,8 +16,6 @@ import { CarListComponent } from './car-list/car-list.component';
 import { CarFormComponent } from './car-form/car-form.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
-import { UserCreateComponent } from './user-create/user-create.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { OrderCreateComponent } from './order-create/order-create.component';
@@ -33,8 +31,8 @@ var appRoutes = [
     { path: 'CarCreate', component: CarFormComponent },
     { path: 'CarEdit/:id', component: CarFormComponent },
     { path: 'UserList', component: UserListComponent },
-    { path: 'UserCreate', component: UserCreateComponent },
-    { path: 'UserEdit/:id', component: UserEditComponent },
+    { path: 'UserCreate', component: UserFormComponent },
+    { path: 'UserEdit/:id', component: UserFormComponent },
     { path: 'OrderList', component: OrderListComponent },
     { path: 'OrderCreate', component: OrderCreateComponent },
     { path: 'OrderEdit/:id', component: OrderEditComponent },
@@ -47,8 +45,7 @@ var AppModule = /** @class */ (function () {
         NgModule({
             imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
             declarations: [AppComponent, MainPageComponent, CarListComponent, CarFormComponent,
-                UserListComponent, UserCreateComponent, UserEditComponent,
-                UserFormComponent, OrderListComponent, OrderCreateComponent, OrderEditComponent,
+                UserListComponent, UserFormComponent, OrderListComponent, OrderCreateComponent, OrderEditComponent,
                 OrderFormComponent, NotFoundComponent, NavMenuComponent],
             providers: [UserService, CarService, OrderService],
             bootstrap: [AppComponent]

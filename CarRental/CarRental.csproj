@@ -61,8 +61,6 @@
     <TypeScriptCompile Include="ClientApp\app\order.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\order.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\user.service.ts" />
-    <TypeScriptCompile Include="ClientApp\app\user-create\user-create.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\user-edit\user-edit.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\user-form\user-form.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\user-list\user-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\user.ts" />

@@ -7,20 +7,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../services/user.service';
 import { User } from '../user';
 var UserFormComponent = /** @class */ (function () {
-    function UserFormComponent() {
+    function UserFormComponent(userService, router, activeRoute) {
+        this.userService = userService;
+        this.router = router;
+        this.user = new User(); // добавляемый объект
+        this.loaded = false;
+        this.id = Number.parseInt(activeRoute.snapshot.params["id"]);
     }
-    __decorate([
-        Input(),
-        __metadata("design:type", User)
-    ], UserFormComponent.prototype, "user", void 0);
+    UserFormComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        if (this.id)
+            this.userService.getUser(this.id)
+                .subscribe(function (data) {
+                _this.user = data;
+                if (_this.user != null)
+                    _this.loaded = true;
+            });
+    };
+    UserFormComponent.prototype.save = function () {
+        var _this = this;
+        if (this.id) {
+            this.userService.updateUser(this.user).subscribe(function (data) { return _this.router.navigateByUrl("/UserList"); });
+        }
+        else {
+            this.userService.createUser(this.user).subscribe(function (data) { return _this.router.navigateByUrl("/UserList"); });
+        }
+    };
     UserFormComponent = __decorate([
         Component({
-            selector: "user-form",
             templateUrl: './user-form.component.html'
-        })
+        }),
+        __metadata("design:paramtypes", [UserService, Router, ActivatedRoute])
     ], UserFormComponent);
     return UserFormComponent;
 }());
