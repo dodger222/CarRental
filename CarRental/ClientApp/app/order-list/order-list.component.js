@@ -16,7 +16,7 @@ var OrderListComponent = /** @class */ (function () {
         this.orderService = orderService;
         this.userService = userService;
         this.carService = carService;
-        this.filter = {};
+        this.query = {};
     }
     OrderListComponent.prototype.ngOnInit = function () {
         this.load();
@@ -36,15 +36,25 @@ var OrderListComponent = /** @class */ (function () {
     };
     OrderListComponent.prototype.populateViewOrders = function () {
         var _this = this;
-        this.orderService.getOrders(this.filter)
+        this.orderService.getOrders(this.query)
             .subscribe(function (data) { return _this.viewOrders = data; });
     };
     OrderListComponent.prototype.onFilterChange = function () {
         this.populateViewOrders();
     };
     OrderListComponent.prototype.resetFilter = function () {
-        this.filter = {};
+        this.query = {};
         this.onFilterChange();
+    };
+    OrderListComponent.prototype.sortBy = function (columnName) {
+        if (this.query.sortBy === columnName) {
+            this.query.isSortAscending = false;
+        }
+        else {
+            this.query.sortBy = columnName;
+            this.query.isSortAscending = true;
+        }
+        this.populateViewOrders();
     };
     OrderListComponent = __decorate([
         Component({

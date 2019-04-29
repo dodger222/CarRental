@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
+using CarRental.Extensions;
 
 namespace CarRental.Controllers
 {
@@ -29,9 +31,9 @@ namespace CarRental.Controllers
         }
 
         [HttpGet]
-        public List<ViewOrderResource> GetOrders(FilterResource filterResource)
+        public List<ViewOrderResource> GetOrders(OrderQueryResource filterResource)
         {
-            var filter = mapper.Map<FilterResource, Filter>(filterResource);
+            var filter = mapper.Map<OrderQueryResource, OrderQuery>(filterResource);
             var viewOrders = CreateViewOrderList(filter);
 
             return mapper.Map<List<ViewOrder>, List<ViewOrderResource>>(viewOrders);
@@ -158,7 +160,7 @@ namespace CarRental.Controllers
         //}
 
         
-        private List<ViewOrder> CreateViewOrderList(Filter filter)
+        private List<ViewOrder> CreateViewOrderList(OrderQuery queryObj)
         {
             var result = from o in db.Orders
                          join u in db.Users on o.UserId equals u.Id
@@ -198,29 +200,43 @@ namespace CarRental.Controllers
                 viewOrders.Add(viewOrder);
             }
 
-            if (filter.UserFirstName != null)
+            if (queryObj.UserFirstName != null)
             {
-                viewOrders = viewOrders.Where(v => v.UserFirstName == filter.UserFirstName).ToList();
+                viewOrders = viewOrders.Where(v => v.UserFirstName == queryObj.UserFirstName).ToList();
             }
-            if (filter.CarMake != null)
+            if (queryObj.CarMake != null)
             {
-                viewOrders = viewOrders.Where(v => v.CarMake == filter.CarMake).ToList();
+                viewOrders = viewOrders.Where(v => v.CarMake == queryObj.CarMake).ToList();
             }
-            if (filter.CarModel != null)
+            if (queryObj.CarModel != null)
             {
-                viewOrders = viewOrders.Where(v => v.CarModel == filter.CarModel).ToList();
+                viewOrders = viewOrders.Where(v => v.CarModel == queryObj.CarModel).ToList();
             }
-            if (filter.StartDate != null)
+            if (queryObj.StartDate != null)
             {
-                viewOrders = viewOrders.Where(v => v.StartDate.ToString() == filter.StartDate).ToList();
+                viewOrders = viewOrders.Where(v => v.StartDate.ToString() == queryObj.StartDate).ToList();
             }
-            if (filter.FinalDate != null)
+            if (queryObj.FinalDate != null)
             {
-                viewOrders = viewOrders.Where(v => v.FinalDate.ToString() == filter.FinalDate).ToList();
+                viewOrders = viewOrders.Where(v => v.FinalDate.ToString() == queryObj.FinalDate).ToList();
             }
 
+            var columnsMap = new Dictionary<string, Expression<Func<ViewOrder, object>>>()
+            {
+                ["userFirstName"] = v => v.UserFirstName,
+                ["userLastName"] = v => v.UserLastName,
+                ["carMake"] = v => v.CarMake,
+                ["carModel"] = v => v.CarModel,
+                ["carRegistrationNumber"] = v => v.CarRegistrationNumber,
+                ["startDate"] = v => v.StartDate,
+                ["finalDate"] = v => v.FinalDate,
+            };
+
+            viewOrders = viewOrders.ApplyOrdering(queryObj, columnsMap);
 
             return viewOrders;
         }
+
+        
     }
 }

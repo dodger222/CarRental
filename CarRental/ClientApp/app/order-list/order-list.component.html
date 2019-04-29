@@ -5,35 +5,35 @@
     <h3>Filters:</h3>
     <div class="form-group">
         <label for="userName">Name of user</label>
-        <select id="userName" class="form-control" [(ngModel)]="filter.userFirstName" (change)="onFilterChange()">
+        <select id="userName" class="form-control" [(ngModel)]="query.userFirstName" (change)="onFilterChange()">
             <option value="">No filter</option>
             <option *ngFor="let u of users" value="{{u.firstName}}">{{u.firstName}}</option>
         </select>
     </div>
     <div class="form-group">
         <label for="carMake">Make of car</label>
-        <select id="carMake" class="form-control" [(ngModel)]="filter.carMake" (change)="onFilterChange()">
+        <select id="carMake" class="form-control" [(ngModel)]="query.carMake" (change)="onFilterChange()">
             <option value="">No filter</option>
             <option *ngFor="let c of cars" value="{{c.make}}">{{c.make}}</option>
         </select>
     </div>
     <div class="form-group">
         <label for="carModel">Model of car</label>
-        <select id="carModel" class="form-control" [(ngModel)]="filter.carModel" (change)="onFilterChange()">
+        <select id="carModel" class="form-control" [(ngModel)]="query.carModel" (change)="onFilterChange()">
             <option value="">No filter</option>
             <option *ngFor="let c of cars" value="{{c.model}}">{{c.model}}</option>
         </select>
     </div>
     <div class="form-group">
         <label for="startDate">Start date</label>
-        <select id="startDate" class="form-control" [(ngModel)]="filter.startDate" (change)="onFilterChange()">
+        <select id="startDate" class="form-control" [(ngModel)]="query.startDate" (change)="onFilterChange()">
             <option value="">No filter</option>
             <option *ngFor="let o of orders" value="{{o.startDate}}">{{o.startDate}}</option>
         </select>
     </div>
     <div class="form-group">
         <label for="finalDate">Final date</label>
-        <select id="finalDate" class="form-control" [(ngModel)]="filter.finalDate" (change)="onFilterChange()">
+        <select id="finalDate" class="form-control" [(ngModel)]="query.finalDate" (change)="onFilterChange()">
             <option value="">No filter</option>
             <option *ngFor="let o of orders" value="{{o.finalDate}}">{{o.finalDate}}</option>
         </select>
@@ -43,17 +43,23 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>Пользователь</td>
-            <td>Автомобиль</td>
-            <td>Дата начала проката</td>
-            <td>Дата окончания проката</td>
-            <td></td>
+            <th (click)="sortBy('userLastName')">User's Last Name</th>
+            <th (click)="sortBy('userFirstName')">User's First Name</th>
+            <th (click)="sortBy('carMake')">Car Make</th>
+            <th (click)="sortBy('carModel')">Car Model</th>
+            <th (click)="sortBy('carRegistrationNumber')">Car Registration number</th>
+            <th (click)="sortBy('startDate')">Start date</th>
+            <th (click)="sortBy('finalDate')">Final date</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let v of viewOrders">
-            <td>{{v?.userLastName}} {{v?.userFirstName}}</td>
-            <td>{{v?.carMake}} {{v?.carModel}}, {{v.carRegistrationNumber}}</td>
+            <td>{{v?.userLastName}}</td>
+            <td>{{v?.userFirstName}}</td>
+            <td>{{v?.carMake}}</td>
+            <td>{{v?.carModel}}</td>
+            <td>{{v.carRegistrationNumber}}</td>
             <td>{{v?.startDate}}</td>
             <td>{{v?.finalDate}}</td>
             <td>

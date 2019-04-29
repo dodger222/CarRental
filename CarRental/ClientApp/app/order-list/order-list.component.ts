@@ -16,7 +16,7 @@ export class OrderListComponent implements OnInit {
     orders: Order[];
     users: User[];
     cars: Car[];
-    filter: any = {}
+    query: any = {}
     constructor(private orderService: OrderService, private userService: UserService, private carService: CarService) { }
 
     ngOnInit() {
@@ -35,7 +35,7 @@ export class OrderListComponent implements OnInit {
     }
 
     private populateViewOrders() {
-        this.orderService.getOrders(this.filter)
+        this.orderService.getOrders(this.query)
             .subscribe((data: ViewOrder[]) => this.viewOrders = data)
     }
 
@@ -43,7 +43,18 @@ export class OrderListComponent implements OnInit {
         this.populateViewOrders();
     }
     resetFilter() {
-        this.filter = {};
+        this.query = {};
         this.onFilterChange();
+    }
+
+    sortBy(columnName: any) {
+        if (this.query.sortBy === columnName) {
+            this.query.isSortAscending = false;
+        }
+        else {
+            this.query.sortBy = columnName;
+            this.query.isSortAscending = true;
+        }
+        this.populateViewOrders();
     }
 }
