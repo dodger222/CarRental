@@ -145,14 +145,17 @@ namespace CarRental.Controllers
         {
             var result = from o in db.Orders
                          join u in db.Users on o.UserId equals u.Id
-                         join a in db.Cars on o.CarId equals a.Id
+                         join c in db.Cars on o.CarId equals c.Id
                          select new
                          {
                              Id = o.Id,
                              UserId = u.Id,
+                             UserLastName = u.LastName,
                              UserFirstName = u.FirstName,
-                             CarId = a.Id,
-                             CarMake = a.Make,
+                             CarId = c.Id,
+                             CarMake = c.Make,
+                             CarModel = c.Model,
+                             CarRegistrationNumber = c.RegistrationNumber,
                              StartDate = o.StartDate,
                              FinalDate = o.FinalDate
                          };
@@ -160,6 +163,10 @@ namespace CarRental.Controllers
             if (filter.UserId.HasValue)
             {
                 result = result.Where(v => v.UserId == filter.UserId.Value);
+            }
+            if (filter.CarId.HasValue)
+            {
+                result = result.Where(v => v.CarId == filter.CarId.Value);
             }
 
             List<ViewOrder> viewOrders = new List<ViewOrder>();
@@ -170,9 +177,12 @@ namespace CarRental.Controllers
                 {
                     Id = item.Id,
                     UserId = item.UserId,
+                    UserLastName = item.UserLastName,
                     UserFirstName = item.UserFirstName,
                     CarId = item.Id,
                     CarMake = item.CarMake,
+                    CarModel = item.CarModel,
+                    CarRegistrationNumber = item.CarRegistrationNumber,
                     StartDate = item.StartDate,
                     FinalDate = item.FinalDate
                 };

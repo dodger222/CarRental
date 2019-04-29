@@ -8,5 +8,6 @@ namespace CarRental.Core.Models
     public class Filter
     {
         public int? UserId { get; set; }
+        public int? CarId { get; set; }
     }
 }

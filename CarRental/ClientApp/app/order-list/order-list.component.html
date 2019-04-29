@@ -1,12 +1,20 @@
 ﻿<div>
-    <a routerLink="/OrderCreate" class="btn btn-sm btn-primary">Добавить заказ</a>
+    <a routerLink="/OrderCreate" class="btn btn-sm btn-primary">Add order</a>
 </div>
 <div class="well">
+    <h3>Filters:</h3>
     <div class="form-group">
-        <label for="userDriveLicenseNumber">Водительское удостоверение пользователя</label>
-        <select id="userDriveLicenseNumber" class="form-control" [(ngModel)]="filter.userId" (change)="onFilterChange()">
-            <option value="">all</option>
-            <option *ngFor="let u of users" value="{{u.id}}">{{u.firstName}} {{u.lastName}}</option>
+        <label for="userName">Name of user</label>
+        <select id="userName" class="form-control" [(ngModel)]="filter.userId" (change)="onFilterChange()">
+            <option value="">No filter</option>
+            <option *ngFor="let u of users" value="{{u.id}}">{{u.lastName}} {{u.firstName}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="carMake">Make of car</label>
+        <select id="carMake" class="form-control" [(ngModel)]="filter.carId" (change)="onFilterChange()">
+            <option value="">No filter</option>
+            <option *ngFor="let c of cars" value="{{c.id}}">{{c.make}} {{c.model}}</option>
         </select>
     </div>
     <button class="btn btn-default" (click)="resetFilter()">Reset</button>
@@ -23,13 +31,13 @@
     </thead>
     <tbody>
         <tr *ngFor="let v of viewOrders">
-            <td>{{v?.userFirstName}}</td>
-            <td>{{v?.carMake}}</td>
+            <td>{{v?.userLastName}} {{v?.userFirstName}}</td>
+            <td>{{v?.carMake}} {{v?.carModel}}, {{v.carRegistrationNumber}}</td>
             <td>{{v?.startDate}}</td>
             <td>{{v?.finalDate}}</td>
             <td>
-                <a [routerLink]="['/OrderEdit', v.id]" class="btn btn-sm btn-primary">Изменить</a>
-                <button (click)="delete(v.id)" class="btn btn-sm btn-danger">Удалить</button>
+                <a [routerLink]="['/OrderEdit', v.id]" class="btn btn-sm btn-primary">Edit</a>
+                <button (click)="delete(v.id)" class="btn btn-sm btn-danger">Delete</button>
             </td>
         </tr>
     </tbody>

@@ -10,10 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { UserService } from '../services/user.service';
+import { CarService } from '../services/car.service';
 var OrderListComponent = /** @class */ (function () {
-    function OrderListComponent(orderService, userService) {
+    function OrderListComponent(orderService, userService, carService) {
         this.orderService = orderService;
         this.userService = userService;
+        this.carService = carService;
         this.filter = {};
     }
     OrderListComponent.prototype.ngOnInit = function () {
@@ -23,6 +25,7 @@ var OrderListComponent = /** @class */ (function () {
         var _this = this;
         this.orderService.getOrders().subscribe(function (data) { return _this.viewOrders = _this.allViewOrder = data; });
         this.userService.getUsers().subscribe(function (data) { return _this.users = data; });
+        this.carService.getCars().subscribe(function (data) { return _this.cars = data; });
     };
     OrderListComponent.prototype.delete = function (id) {
         var _this = this;
@@ -33,8 +36,8 @@ var OrderListComponent = /** @class */ (function () {
         var viewOrders = this.allViewOrder;
         if (this.filter.userId)
             viewOrders = viewOrders.filter(function (v) { return v.userId == _this.filter.userId; });
-        if (this.filter.autoId)
-            viewOrders = viewOrders.filter(function (v) { return v.carId == _this.filter.autoId; });
+        if (this.filter.carId)
+            viewOrders = viewOrders.filter(function (v) { return v.carId == _this.filter.carId; });
         this.viewOrders = viewOrders;
     };
     OrderListComponent.prototype.resetFilter = function () {
@@ -45,7 +48,7 @@ var OrderListComponent = /** @class */ (function () {
         Component({
             templateUrl: './order-list.component.html'
         }),
-        __metadata("design:paramtypes", [OrderService, UserService])
+        __metadata("design:paramtypes", [OrderService, UserService, CarService])
     ], OrderListComponent);
     return OrderListComponent;
 }());
