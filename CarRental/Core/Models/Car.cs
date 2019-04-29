@@ -30,6 +30,7 @@ namespace CarRental.Core.Models
         [Range(1990, 2019, ErrorMessage = "The value of the 'Year of issue' field must be between 1990 and 2019.")]
         public int YearOfIssue { get; set; }
 
+        [RegularExpression(@"^\d{4}[-][A-Z]{2}[1-7]{1}$", ErrorMessage = "Format data of field 'Registration number' is 1111-AA1")]
         [Required]
         [StringLength(255)]
         public string RegistrationNumber { get; set; }
