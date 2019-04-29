@@ -12,6 +12,7 @@ namespace CarRental.Mapping
     {
         public MappingProfile()
         {
+            CreateMap<FilterResource, Filter>();
             CreateMap<User, UserResource>();
             CreateMap<Car, CarResource>();
             CreateMap<ViewOrder, ViewOrderResource>();

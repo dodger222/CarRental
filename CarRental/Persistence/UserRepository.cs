@@ -20,6 +20,37 @@ namespace CarRental.Persistence
         {
             return db.Users.ToList();
         }
+        
+        public List<User> GetUserWithUniqueFirstnames()
+        {
+            var result = db.Users.ToList();
+
+            List<string> names = new List<string>();
+
+            foreach(var item in result)
+            {
+                names.Add(item.FirstName);
+            }
+
+            names.Distinct();
+
+            List<User> users = new List<User>();
+
+            foreach(string name in names)
+            {
+                for (int i = 0; i < result.Count(); i++)
+                {
+                    if (result[i].FirstName == name)
+                    {
+                        users.Add(result[i]);
+                        break;
+                    }
+
+                }
+            }
+
+            return users;
+        }
 
         public User GetUser(int id)
         {

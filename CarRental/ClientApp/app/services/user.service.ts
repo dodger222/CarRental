@@ -15,6 +15,10 @@ export class UserService {
         return this.http.get(this.userUrl);
     }
 
+    getUsersWithUniqueFirstnames() {
+        return this.http.get(this.userUrl + '/' + encodeURIComponent('UniqueFirstName'));
+    }
+
     getUser(id: number) {
         return this.http.get(this.userUrl + '/' + id);
     }

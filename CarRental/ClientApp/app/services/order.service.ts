@@ -10,8 +10,19 @@ export class OrderService {
     constructor(private http: HttpClient) {
     }
 
-    getOrders() {
-        return this.http.get(this.orderUrl);
+    getOrders(filter: any) {
+        return this.http.get(this.orderUrl + '?' + this.toQueryString(filter));
+    }
+
+    toQueryString(obj: any) {
+        var parts = [];
+        for (var property in obj) {
+            var value = obj[property];
+            if (value != null && value != undefined)
+                parts.push(encodeURIComponent(property) + '=' + encodeURIComponent(value));
+        }
+
+        return parts.join('&');
     }
 
     getOrder(id: number) {

@@ -5,16 +5,16 @@
     <h3>Filters:</h3>
     <div class="form-group">
         <label for="userName">Name of user</label>
-        <select id="userName" class="form-control" [(ngModel)]="filter.userId" (change)="onFilterChange()">
+        <select id="userName" class="form-control" [(ngModel)]="filter.userFirstName" (change)="onFilterChange()">
             <option value="">No filter</option>
-            <option *ngFor="let u of users" value="{{u.id}}">{{u.lastName}} {{u.firstName}}</option>
+            <option *ngFor="let u of users" value="{{u.firstName}}">{{u.firstName}}</option>
         </select>
     </div>
     <div class="form-group">
         <label for="carMake">Make of car</label>
-        <select id="carMake" class="form-control" [(ngModel)]="filter.carId" (change)="onFilterChange()">
+        <select id="carMake" class="form-control" [(ngModel)]="filter.carMake" (change)="onFilterChange()">
             <option value="">No filter</option>
-            <option *ngFor="let c of cars" value="{{c.id}}">{{c.make}} {{c.model}}</option>
+            <option *ngFor="let c of cars" value="{{c.make}}">{{c.make}}</option>
         </select>
     </div>
     <button class="btn btn-default" (click)="resetFilter()">Reset</button>

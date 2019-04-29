@@ -13,5 +13,6 @@ namespace CarRental.Core
         void Remove(User user);
         void Update(User user);
         List<User> GetUsers();
+        List<User> GetUserWithUniqueFirstnames();
     }
 }

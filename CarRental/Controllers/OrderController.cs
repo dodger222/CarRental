@@ -29,8 +29,9 @@ namespace CarRental.Controllers
         }
 
         [HttpGet]
-        public List<ViewOrderResource> GetOrders(Filter filter)
+        public List<ViewOrderResource> GetOrders(FilterResource filterResource)
         {
+            var filter = mapper.Map<FilterResource, Filter>(filterResource);
             var viewOrders = CreateViewOrderList(filter);
 
             return mapper.Map<List<ViewOrder>, List<ViewOrderResource>>(viewOrders);
@@ -149,25 +150,16 @@ namespace CarRental.Controllers
                          select new
                          {
                              Id = o.Id,
-                             UserId = u.Id,
+                             UserId = o.UserId,
                              UserLastName = u.LastName,
                              UserFirstName = u.FirstName,
-                             CarId = c.Id,
+                             CarId = o.CarId,
                              CarMake = c.Make,
                              CarModel = c.Model,
                              CarRegistrationNumber = c.RegistrationNumber,
                              StartDate = o.StartDate,
                              FinalDate = o.FinalDate
                          };
-
-            if (filter.UserId.HasValue)
-            {
-                result = result.Where(v => v.UserId == filter.UserId.Value);
-            }
-            if (filter.CarId.HasValue)
-            {
-                result = result.Where(v => v.CarId == filter.CarId.Value);
-            }
 
             List<ViewOrder> viewOrders = new List<ViewOrder>();
 
@@ -179,7 +171,7 @@ namespace CarRental.Controllers
                     UserId = item.UserId,
                     UserLastName = item.UserLastName,
                     UserFirstName = item.UserFirstName,
-                    CarId = item.Id,
+                    CarId = item.CarId,
                     CarMake = item.CarMake,
                     CarModel = item.CarModel,
                     CarRegistrationNumber = item.CarRegistrationNumber,
@@ -189,6 +181,16 @@ namespace CarRental.Controllers
 
                 viewOrders.Add(viewOrder);
             }
+
+            if (filter.UserFirstName != null)
+            {
+                viewOrders = viewOrders.Where(v => v.UserFirstName == filter.UserFirstName).ToList();
+            }
+            if (filter.CarMake != null)
+            {
+                viewOrders = viewOrders.Where(v => v.CarMake == filter.CarMake).ToList();
+            }
+            
 
             return viewOrders;
         }

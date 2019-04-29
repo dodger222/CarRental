@@ -18,6 +18,9 @@ var UserService = /** @class */ (function () {
     UserService.prototype.getUsers = function () {
         return this.http.get(this.userUrl);
     };
+    UserService.prototype.getUsersWithUniqueFirstnames = function () {
+        return this.http.get(this.userUrl + '/' + encodeURIComponent('UniqueFirstName'));
+    };
     UserService.prototype.getUser = function (id) {
         return this.http.get(this.userUrl + '/' + id);
     };

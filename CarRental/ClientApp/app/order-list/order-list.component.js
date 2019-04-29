@@ -23,22 +23,21 @@ var OrderListComponent = /** @class */ (function () {
     };
     OrderListComponent.prototype.load = function () {
         var _this = this;
-        this.orderService.getOrders().subscribe(function (data) { return _this.viewOrders = _this.allViewOrder = data; });
-        this.userService.getUsers().subscribe(function (data) { return _this.users = data; });
+        this.populateViewOrders();
+        this.userService.getUsersWithUniqueFirstnames().subscribe(function (data) { return _this.users = data; });
         this.carService.getCars().subscribe(function (data) { return _this.cars = data; });
     };
     OrderListComponent.prototype.delete = function (id) {
         var _this = this;
         this.orderService.deleteOrder(id).subscribe(function (data) { return _this.load(); });
     };
-    OrderListComponent.prototype.onFilterChange = function () {
+    OrderListComponent.prototype.populateViewOrders = function () {
         var _this = this;
-        var viewOrders = this.allViewOrder;
-        if (this.filter.userId)
-            viewOrders = viewOrders.filter(function (v) { return v.userId == _this.filter.userId; });
-        if (this.filter.carId)
-            viewOrders = viewOrders.filter(function (v) { return v.carId == _this.filter.carId; });
-        this.viewOrders = viewOrders;
+        this.orderService.getOrders(this.filter)
+            .subscribe(function (data) { return _this.viewOrders = data; });
+    };
+    OrderListComponent.prototype.onFilterChange = function () {
+        this.populateViewOrders();
     };
     OrderListComponent.prototype.resetFilter = function () {
         this.filter = {};

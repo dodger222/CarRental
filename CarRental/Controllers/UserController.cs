@@ -23,10 +23,19 @@ namespace CarRental.Controllers
             this.mapper = mapper;
             this.repository = repository;
         }
+
         [HttpGet]
         public IEnumerable<UserResource> GetUsers()
         {
             var users = repository.GetUsers();
+
+            return mapper.Map<List<User>, List<UserResource>>(users);
+        }
+
+        [HttpGet("UniqueFirstName")]
+        public IEnumerable<UserResource> GetUserWithUniqueFirstnames(string unique)
+        {
+            var users = repository.GetUserWithUniqueFirstnames();
 
             return mapper.Map<List<User>, List<UserResource>>(users);
         }

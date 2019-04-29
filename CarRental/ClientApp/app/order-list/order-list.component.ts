@@ -13,7 +13,6 @@ import { Car } from '../car';
 export class OrderListComponent implements OnInit {
     
     viewOrders: ViewOrder[];
-    allViewOrder: ViewOrder[];
     users: User[];
     cars: Car[];
     filter: any = {}
@@ -23,23 +22,21 @@ export class OrderListComponent implements OnInit {
         this.load();
     }
     load() {
-        this.orderService.getOrders().subscribe((data: ViewOrder[]) => this.viewOrders = this.allViewOrder = data);
-        this.userService.getUsers().subscribe((data: User[]) => this.users = data);
+        this.populateViewOrders();
+        this.userService.getUsersWithUniqueFirstnames().subscribe((data: User[]) => this.users = data);
         this.carService.getCars().subscribe((data: Car[]) => this.cars = data);
     }
     delete(id: number) {
         this.orderService.deleteOrder(id).subscribe(data => this.load());
     }
+
+    private populateViewOrders() {
+        this.orderService.getOrders(this.filter)
+            .subscribe((data: ViewOrder[]) => this.viewOrders = data)
+    }
+
     onFilterChange() {
-        var viewOrders = this.allViewOrder;
-
-        if (this.filter.userId)
-            viewOrders = viewOrders.filter(v => v.userId == this.filter.userId)
-
-        if (this.filter.carId)
-            viewOrders = viewOrders.filter(v => v.carId == this.filter.carId)
-
-        this.viewOrders = viewOrders;
+        this.populateViewOrders();
     }
     resetFilter() {
         this.filter = {};

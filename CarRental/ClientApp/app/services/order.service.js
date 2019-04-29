@@ -14,8 +14,17 @@ var OrderService = /** @class */ (function () {
         this.http = http;
         this.orderUrl = "/api/orders";
     }
-    OrderService.prototype.getOrders = function () {
-        return this.http.get(this.orderUrl);
+    OrderService.prototype.getOrders = function (filter) {
+        return this.http.get(this.orderUrl + '?' + this.toQueryString(filter));
+    };
+    OrderService.prototype.toQueryString = function (obj) {
+        var parts = [];
+        for (var property in obj) {
+            var value = obj[property];
+            if (value != null && value != undefined)
+                parts.push(encodeURIComponent(property) + '=' + encodeURIComponent(value));
+        }
+        return parts.join('&');
     };
     OrderService.prototype.getOrder = function (id) {
         return this.http.get(this.orderUrl + '/' + id);
