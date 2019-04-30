@@ -9,7 +9,7 @@ import { User } from '../user';
 export class UserFormComponent {
 
     id: number;
-    user: User = new User();    // добавляемый объект
+    user: User = new User();
     loaded: boolean = false;
 
     constructor(private userService: UserService, private router: Router, activeRoute: ActivatedRoute) {

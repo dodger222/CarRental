@@ -16,7 +16,7 @@ export class OrderFormComponent implements OnInit {
     cars: Car[];
 
     id: number;
-    order: Order = new Order();    // изменяемый объект
+    order: Order = new Order();
     loaded: boolean = false;
 
     constructor(

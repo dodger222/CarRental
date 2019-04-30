@@ -14,7 +14,6 @@ var UserService = /** @class */ (function () {
         this.http = http;
         this.userUrl = "/api/users";
     }
-    // методы для работы с пользователем
     UserService.prototype.getUsers = function () {
         return this.http.get(this.userUrl);
     };

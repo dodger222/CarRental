@@ -20,6 +20,7 @@ namespace CarRental.Persistence
             return db.Cars.ToList();
         }
 
+        //get unique car makes to transfer them to the list for filtering
         public List<Car> GetCarsWithUniqueMake()
         {
             var result = db.Cars.ToList();
@@ -57,6 +58,7 @@ namespace CarRental.Persistence
             return cars;
         }
 
+        //get unique car models to transfer them to the list for filtering
         public List<Car> GetCarsWithUniqueModel()
         {
             var result = db.Cars.ToList();

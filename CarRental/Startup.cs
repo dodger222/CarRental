@@ -41,7 +41,7 @@ namespace CarRental
             {
                 app.UseDeveloperExceptionPage();
 
-                //Добавляем сборку через webpack
+                //Add assembly via webpack
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true

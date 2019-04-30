@@ -15,7 +15,7 @@ var CarFormComponent = /** @class */ (function () {
     function CarFormComponent(carService, router, activeRoute) {
         this.carService = carService;
         this.router = router;
-        this.car = new Car(); // добавляемый объект
+        this.car = new Car();
         this.loaded = false;
         this.id = Number.parseInt(activeRoute.snapshot.params["id"]);
     }

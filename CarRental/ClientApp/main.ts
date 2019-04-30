@@ -3,11 +3,11 @@ import { AppModule } from './app/app.module';
 const platform = platformBrowserDynamic();
 platform.bootstrapModule(AppModule);
 
-//для перезагрузки приложения при изменениях в исходном коде
+//to reload the application with changes in the source code
 if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => {
-        //Перед запуском приложения создаём новый элемент app, которым заменяем старый
+        //before launching the application, create a new app element that replaces the old one
         const oldRootElem = document.querySelector('app');
         const newRootElem = document.createElement('app');
         oldRootElem!.parentNode!.insertBefore(newRootElem, oldRootElem);

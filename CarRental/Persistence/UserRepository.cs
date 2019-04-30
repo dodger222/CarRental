@@ -20,7 +20,8 @@ namespace CarRental.Persistence
         {
             return db.Users.ToList();
         }
-        
+
+        //get unique first name to transfer them to the list for filtering
         public List<User> GetUserWithUniqueFirstnames()
         {
             var result = db.Users.ToList();

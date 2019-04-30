@@ -25,7 +25,6 @@ import { CarService } from './services/car.service';
 import { UserService } from './services/user.service';
 import { OrderService } from './services/order.service';
 
-// определение маршрутов
 const appRoutes: Routes = [
 
     { path: '', component: MainPageComponent },

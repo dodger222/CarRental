@@ -15,7 +15,7 @@ var UserFormComponent = /** @class */ (function () {
     function UserFormComponent(userService, router, activeRoute) {
         this.userService = userService;
         this.router = router;
-        this.user = new User(); // добавляемый объект
+        this.user = new User();
         this.loaded = false;
         this.id = Number.parseInt(activeRoute.snapshot.params["id"]);
     }

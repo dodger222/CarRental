@@ -22,7 +22,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { CarService } from './services/car.service';
 import { UserService } from './services/user.service';
 import { OrderService } from './services/order.service';
-// определение маршрутов
 var appRoutes = [
     { path: '', component: MainPageComponent },
     { path: 'CarList', component: CarListComponent },

@@ -19,7 +19,7 @@ var OrderFormComponent = /** @class */ (function () {
         this.carService = carService;
         this.orderService = orderService;
         this.router = router;
-        this.order = new Order(); // изменяемый объект
+        this.order = new Order();
         this.loaded = false;
         this.id = Number.parseInt(activeRoute.snapshot.params["id"]);
     }

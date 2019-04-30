@@ -9,7 +9,7 @@ import { Car } from '../car';
 export class CarFormComponent implements OnInit {
 
     id: number;
-    car: Car = new Car();    // добавляемый объект
+    car: Car = new Car();
     loaded: boolean = false;
 
     constructor(private carService: CarService, private router: Router, activeRoute: ActivatedRoute) {

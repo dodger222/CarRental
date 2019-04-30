@@ -21,6 +21,8 @@ namespace CarRental.Persistence
         {
             return db.Orders.ToList();
         }
+
+        //get unique start date to transfer them to the list for filtering
         public List<Order> GetOrdersWithUniqueStartDate()
         {
             var result = db.Orders.ToList();
@@ -57,6 +59,8 @@ namespace CarRental.Persistence
 
             return orders;
         }
+
+        //get unique final date to transfer them to the list for filtering
         public List<Order> GetOrdersWithUniqueFinalDate()
         {
             var result = db.Orders.ToList();

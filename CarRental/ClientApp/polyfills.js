@@ -1,6 +1,6 @@
 import 'core-js/es6';
-//для поддержки Reflect Api
+//to support Reflect Api
 import 'core-js/es7/reflect';
-//zone используется angular
+//zone is used angular
 import 'zone.js/dist/zone';
 //# sourceMappingURL=polyfills.js.map
