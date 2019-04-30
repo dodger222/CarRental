@@ -6,9 +6,9 @@ The project idea is convenient management of the car rental data.
 
 Opportunities:
 
-Order management
-Client management
-Car park management
+ - Order management
+ - Client management
+ - Car park management
 
 
 Used Technologies:
@@ -29,9 +29,9 @@ Recommended system requirements:
 
 Recommended software:
 
-Visual Studio 2017
-SQL Server 2017
-Browser Firefox 66.0.3
+ - Visual Studio 2017
+ - SQL Server 2017
+ - Browser Firefox 66.0.3
 
 To run the application you need:
 
