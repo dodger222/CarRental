@@ -15,5 +15,6 @@ namespace CarRental.Core
         List<Order> GetOrders();
         List<Order> GetOrdersWithUniqueStartDate();
         List<Order> GetOrdersWithUniqueFinalDate();
+        List<ViewOrder> CreateViewOrderList(OrderQuery queryObj);
     }
 }

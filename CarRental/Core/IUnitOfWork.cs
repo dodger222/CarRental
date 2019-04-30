@@ -7,6 +7,9 @@ namespace CarRental.Core
 {
     public interface IUnitOfWork
     {
+        IOrderRepository OrderRepository { get; }
+        ICarRepository CarRepository { get; }
+        IUserRepository UserRepository { get; }
         void Complete();
     }
 }

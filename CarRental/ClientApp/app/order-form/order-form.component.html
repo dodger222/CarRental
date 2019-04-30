@@ -1,38 +1,38 @@
 ﻿<div>
-    <h2>Изменение данных о заказе</h2>
+    <h2>Order</h2>
     <form #f="ngForm" (ngSubmit)="submit()">
         <div class="form-group">
-            <label>Пользователь</label>
+            <label>User</label>
             <select class="form-control" [(ngModel)]="order.userId" name="userId" required #userId="ngModel">
                 <option *ngFor="let u of users" value="{{u.id}}">{{u.lastName}}</option>
             </select>
             <div class="alert alert-danger" *ngIf="userId.touched && !userId.valid">Please specify the user.</div>
         </div>
         <div class="form-group">
-            <label>Автомобиль</label>
+            <label>Car</label>
             <select class="form-control" [(ngModel)]="order.carId" name="carId" required #carId="ngModel">
                 <option *ngFor="let c of cars" value="{{c.id}}">{{c.registrationNumber}}</option>
             </select>
             <div class="alert alert-danger" *ngIf="carId.touched && !carId.valid">Please specify the car.</div>
         </div>
         <div class="form-group">
-            <label>Дата начала проката</label>
+            <label>Rental start date</label>
             <input type="text" class="form-control" [(ngModel)]="order.startDate" name="startDate" required #startDate="ngModel" />
             <div class="alert alert-danger" *ngIf="startDate.touched && !startDate.valid">Please specify the start date.</div>
         </div>
         <div class="form-group">
-            <label>Дата окончания проката</label>
+            <label>Rental finel date</label>
             <input type="text" class="form-control" [(ngModel)]="order.finalDate" name="finalDate" required #finalDate="ngModel" />
             <div class="alert alert-danger" *ngIf="finalDate.touched && !finalDate.valid">Please specify the final date.</div>
         </div>
         <div class="form-group">
-            <label>Комментарий</label>
+            <label>Comment</label>
             <input type="text" class="form-control" [(ngModel)]="order.comment" name="comment" required #comment="ngModel" />
             <div class="alert alert-danger" *ngIf="comment.touched && !comment.valid">Please specify the comment.</div>
         </div>
         <div class="form-group">
-            <input type="button" value="Сохранить" (click)="save()" class="btn btn-success" [disabled]="!f.valid" />
-            <a routerLink="/OrderList" class="btn btn-warning">Отмена</a>
+            <input type="button" value="Save" (click)="save()" class="btn btn-success" [disabled]="!f.valid" />
+            <a routerLink="/OrderList" class="btn btn-warning">Cancel</a>
         </div>
     </form>
 </div>

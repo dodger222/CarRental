@@ -14,19 +14,17 @@ namespace CarRental.Controllers
     public class CarController : Controller
     {
         private readonly IMapper mapper;
-        private readonly ICarRepository repository;
         private readonly IUnitOfWork unitOfWork;
 
-        public CarController(IUnitOfWork unitOfWork, IMapper mapper, ICarRepository repository)
+        public CarController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
-            this.repository = repository;
         }
         [HttpGet]
         public IEnumerable<CarResource> GetCars()
         {
-            var cars = repository.GetCars();
+            var cars = unitOfWork.CarRepository.GetCars();
 
             return mapper.Map<List<Car>, List<CarResource>>(cars);
         }
@@ -34,7 +32,7 @@ namespace CarRental.Controllers
         [HttpGet("UniqueMake")]
         public IEnumerable<CarResource> GetCarsWithUniqueMake(string unique)
         {
-            var cars = repository.GetCarsWithUniqueMake();
+            var cars = unitOfWork.CarRepository.GetCarsWithUniqueMake();
 
             return mapper.Map<List<Car>, List<CarResource>>(cars);
         }
@@ -42,7 +40,7 @@ namespace CarRental.Controllers
         [HttpGet("UniqueModel")]
         public IEnumerable<CarResource> GetCarsWithUniqueModel(string unique)
         {
-            var cars = repository.GetCarsWithUniqueModel();
+            var cars = unitOfWork.CarRepository.GetCarsWithUniqueModel();
 
             return mapper.Map<List<Car>, List<CarResource>>(cars);
         }
@@ -50,7 +48,7 @@ namespace CarRental.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCar(int id)
         {
-            var car = repository.GetCar(id);
+            var car = unitOfWork.CarRepository.GetCar(id);
 
             if(car == null)
             {
@@ -72,10 +70,10 @@ namespace CarRental.Controllers
 
             var car = mapper.Map<CarResource, Car>(carResource);
 
-            repository.Add(car);
+            unitOfWork.CarRepository.Add(car);
             unitOfWork.Complete();
 
-            car = repository.GetCar(car.Id);
+            car = unitOfWork.CarRepository.GetCar(car.Id);
 
             var result = mapper.Map<Car, CarResource>(car);
 
@@ -90,7 +88,7 @@ namespace CarRental.Controllers
                 return BadRequest(ModelState);
             }
 
-            var car = repository.GetCar(id);
+            var car = unitOfWork.CarRepository.GetCar(id);
 
             if(car == null)
             {
@@ -98,7 +96,7 @@ namespace CarRental.Controllers
             }
 
             mapper.Map(carResource, car);
-            repository.Update(car);
+            unitOfWork.CarRepository.Update(car);
             unitOfWork.Complete();
 
             var result = mapper.Map<Car, CarResource>(car);
@@ -109,14 +107,14 @@ namespace CarRental.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteCar(int id)
         {
-            var car = repository.GetCar(id);
+            var car = unitOfWork.CarRepository.GetCar(id);
 
             if(car == null)
             {
                 return NotFound();
             }
 
-            repository.Remove(car);
+            unitOfWork.CarRepository.Remove(car);
             unitOfWork.Complete();
 
             return Ok(car);

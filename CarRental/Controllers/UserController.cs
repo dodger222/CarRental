@@ -14,20 +14,18 @@ namespace CarRental.Controllers
     public class UserController : Controller
     {
         private readonly IMapper mapper;
-        private readonly IUserRepository repository;
         private readonly IUnitOfWork unitOfWork;
 
-        public UserController(IUnitOfWork unitOfWork, IMapper mapper, IUserRepository repository)
+        public UserController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
-            this.repository = repository;
         }
 
         [HttpGet]
         public IEnumerable<UserResource> GetUsers()
         {
-            var users = repository.GetUsers();
+            var users = unitOfWork.UserRepository.GetUsers();
 
             return mapper.Map<List<User>, List<UserResource>>(users);
         }
@@ -35,7 +33,7 @@ namespace CarRental.Controllers
         [HttpGet("UniqueFirstName")]
         public IEnumerable<UserResource> GetUserWithUniqueFirstnames(string unique)
         {
-            var users = repository.GetUserWithUniqueFirstnames();
+            var users = unitOfWork.UserRepository.GetUserWithUniqueFirstnames();
 
             return mapper.Map<List<User>, List<UserResource>>(users);
         }
@@ -43,7 +41,7 @@ namespace CarRental.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
-            var user = repository.GetUser(id);
+            var user = unitOfWork.UserRepository.GetUser(id);
 
             if (user == null)
             {
@@ -65,10 +63,10 @@ namespace CarRental.Controllers
 
             var user = mapper.Map<UserResource, User>(userResource);
 
-            repository.Add(user);
+            unitOfWork.UserRepository.Add(user);
             unitOfWork.Complete();
 
-            user = repository.GetUser(user.Id);
+            user = unitOfWork.UserRepository.GetUser(user.Id);
 
             var result = mapper.Map<User, UserResource>(user);
 
@@ -83,7 +81,7 @@ namespace CarRental.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = repository.GetUser(id);
+            var user = unitOfWork.UserRepository.GetUser(id);
 
             if (user == null)
             {
@@ -91,7 +89,7 @@ namespace CarRental.Controllers
             }
 
             mapper.Map(userResource, user);
-            repository.Update(user);
+            unitOfWork.UserRepository.Update(user);
             unitOfWork.Complete();
 
             var result = mapper.Map<User, UserResource>(user);
@@ -102,14 +100,14 @@ namespace CarRental.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
-            var user = repository.GetUser(id);
+            var user = unitOfWork.UserRepository.GetUser(id);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            repository.Remove(user);
+            unitOfWork.UserRepository.Remove(user);
             unitOfWork.Complete();
 
             return Ok(id);

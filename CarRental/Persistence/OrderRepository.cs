@@ -1,8 +1,10 @@
 ﻿using CarRental.Core;
 using CarRental.Core.Models;
+using CarRental.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace CarRental.Persistence
@@ -110,6 +112,83 @@ namespace CarRental.Persistence
         public void Update(Order order)
         {
             db.Update(order);
+        }
+
+        public List<ViewOrder> CreateViewOrderList(OrderQuery queryObj)
+        {
+            var result = from o in db.Orders
+                         join u in db.Users on o.UserId equals u.Id
+                         join c in db.Cars on o.CarId equals c.Id
+                         select new
+                         {
+                             Id = o.Id,
+                             UserId = o.UserId,
+                             UserLastName = u.LastName,
+                             UserFirstName = u.FirstName,
+                             CarId = o.CarId,
+                             CarMake = c.Make,
+                             CarModel = c.Model,
+                             CarRegistrationNumber = c.RegistrationNumber,
+                             StartDate = o.StartDate,
+                             FinalDate = o.FinalDate
+                         };
+
+            List<ViewOrder> viewOrders = new List<ViewOrder>();
+
+            foreach (var item in result)
+            {
+                ViewOrder viewOrder = new ViewOrder
+                {
+                    Id = item.Id,
+                    UserId = item.UserId,
+                    UserLastName = item.UserLastName,
+                    UserFirstName = item.UserFirstName,
+                    CarId = item.CarId,
+                    CarMake = item.CarMake,
+                    CarModel = item.CarModel,
+                    CarRegistrationNumber = item.CarRegistrationNumber,
+                    StartDate = item.StartDate,
+                    FinalDate = item.FinalDate
+                };
+
+                viewOrders.Add(viewOrder);
+            }
+
+            if (queryObj.UserFirstName != null)
+            {
+                viewOrders = viewOrders.Where(v => v.UserFirstName == queryObj.UserFirstName).ToList();
+            }
+            if (queryObj.CarMake != null)
+            {
+                viewOrders = viewOrders.Where(v => v.CarMake == queryObj.CarMake).ToList();
+            }
+            if (queryObj.CarModel != null)
+            {
+                viewOrders = viewOrders.Where(v => v.CarModel == queryObj.CarModel).ToList();
+            }
+            if (queryObj.StartDate != null)
+            {
+                viewOrders = viewOrders.Where(v => v.StartDate.ToString() == queryObj.StartDate).ToList();
+            }
+            if (queryObj.FinalDate != null)
+            {
+                viewOrders = viewOrders.Where(v => v.FinalDate.ToString() == queryObj.FinalDate).ToList();
+            }
+
+            var columnsMap = new Dictionary<string, Expression<Func<ViewOrder, object>>>()
+            {
+                ["userFirstName"] = v => v.UserFirstName,
+                ["userLastName"] = v => v.UserLastName,
+                ["carMake"] = v => v.CarMake,
+                ["carModel"] = v => v.CarModel,
+                ["carRegistrationNumber"] = v => v.CarRegistrationNumber,
+                ["startDate"] = v => v.StartDate,
+                ["finalDate"] = v => v.FinalDate,
+            };
+
+            viewOrders = viewOrders.ApplyOrdering(queryObj, columnsMap);
+
+            return viewOrders;
         }
     }
 }

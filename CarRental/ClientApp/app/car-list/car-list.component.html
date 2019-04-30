@@ -1,14 +1,14 @@
 ﻿<div>
-    <a routerLink="/CarCreate" class="btn btn-sm btn-primary">Добавить автомобиль</a>
+    <a routerLink="/CarCreate" class="btn btn-sm btn-primary">Add car</a>
 </div>
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>Марка</td>
-            <td>Модель</td>
-            <td>Класс</td>
-            <td>Год выпуска</td>
-            <td>Регистрационный номер</td>
+            <td>Make</td>
+            <td>Model</td>
+            <td>Class</td>
+            <td>Year of issue</td>
+            <td>Registration number</td>
             <td></td>
         </tr>
     </thead>
@@ -20,8 +20,8 @@
             <td>{{c?.yearOfIssue}}</td>
             <td>{{c?.registrationNumber}}</td>
             <td>
-                <a [routerLink]="['/CarEdit', c.id]" class="btn btn-sm btn-primary">Изменить</a>
-                <button (click)="delete(c.id)" class="btn btn-sm btn-danger">Удалить</button>
+                <a [routerLink]="['/CarEdit', c.id]" class="btn btn-sm btn-primary">Edit</a>
+                <button (click)="delete(c.id)" class="btn btn-sm btn-danger">Delete</button>
             </td>
         </tr>
     </tbody>

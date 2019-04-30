@@ -1,13 +1,13 @@
 ﻿<div>
-    <a routerLink="/UserCreate" class="btn btn-sm btn-primary">Добавить пользователя</a>
+    <a routerLink="/UserCreate" class="btn btn-sm btn-primary">Add new user</a>
 </div>
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>Фамилия</td>
-            <td>Имя</td>
-            <td>Дата рождения</td>
-            <td>Номер ВУ</td>
+            <td>Last name</td>
+            <td>First name</td>
+            <td>Date of Birth</td>
+            <td>Driver's license number</td>
             <td></td>
         </tr>
     </thead>
@@ -18,8 +18,8 @@
             <td>{{u?.birthDate}}</td>
             <td>{{u?.driveLicenseNumber}}</td>
             <td>
-                <a [routerLink]="['/UserEdit', u.id]" class="btn btn-sm btn-primary">Изменить</a>
-                <button (click)="delete(u.id)" class="btn btn-sm btn-danger">Удалить</button>
+                <a [routerLink]="['/UserEdit', u.id]" class="btn btn-sm btn-primary">Edit</a>
+                <button (click)="delete(u.id)" class="btn btn-sm btn-danger">Delete</button>
             </td>
         </tr>
     </tbody>
