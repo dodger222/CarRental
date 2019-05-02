@@ -32,6 +32,8 @@ namespace CarRental
             services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<ICarService, CarService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

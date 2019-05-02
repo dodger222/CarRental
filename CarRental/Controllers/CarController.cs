@@ -15,107 +15,69 @@ namespace CarRental.Controllers
     {
         private readonly IMapper mapper;
         private readonly IUnitOfWork unitOfWork;
+        private readonly ICarService carService;
 
-        public CarController(IUnitOfWork unitOfWork, IMapper mapper)
+        public CarController(IUnitOfWork unitOfWork, IMapper mapper, ICarService carService)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
+            this.carService = carService;
         }
+
         [HttpGet]
         public IEnumerable<CarResource> GetCars()
         {
-            var cars = unitOfWork.CarRepository.GetCars();
+            var cars = carService.GetCars();
 
-            return mapper.Map<List<Car>, List<CarResource>>(cars);
+            return carService.GetCars();
         }
 
         [HttpGet("UniqueMake")]
         public IEnumerable<CarResource> GetCarsWithUniqueMake(string unique)
         {
-            var cars = unitOfWork.CarRepository.GetCarsWithUniqueMake();
+            var cars = carService.GetCarsWithUniqueMake();
 
-            return mapper.Map<List<Car>, List<CarResource>>(cars);
+            return cars;
         }
 
         [HttpGet("UniqueModel")]
         public IEnumerable<CarResource> GetCarsWithUniqueModel(string unique)
         {
-            var cars = unitOfWork.CarRepository.GetCarsWithUniqueModel();
+            var cars = carService.GetCarsWithUniqueModel();
 
-            return mapper.Map<List<Car>, List<CarResource>>(cars);
+            return cars;
         }
 
         [HttpGet("{id}")]
         public IActionResult GetCar(int id)
         {
-            var car = unitOfWork.CarRepository.GetCar(id);
-
-            if(car == null)
-            {
-                return NotFound();
-            }
-
-            var carResource = mapper.Map<Car, CarResource>(car);
+            var car = carService.GetCar(id);
             
-            return Ok(carResource);
+            return Ok(car);
         }
 
         [HttpPost]
         public IActionResult CreateCar([FromBody]CarResource carResource)
         {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            carService.SaveCar(carResource);
 
-            var car = mapper.Map<CarResource, Car>(carResource);
-
-            unitOfWork.CarRepository.Add(car);
-            unitOfWork.Complete();
-
-            car = unitOfWork.CarRepository.GetCar(car.Id);
-
-            var result = mapper.Map<Car, CarResource>(car);
-
-            return Ok(result);
+            return Ok(carResource);
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateCar(int id, [FromBody]CarResource carResource)
         {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            carService.UpdateCar(carResource);
 
-            var car = unitOfWork.CarRepository.GetCar(id);
-
-            if(car == null)
-            {
-                return NotFound();
-            }
-
-            mapper.Map(carResource, car);
-            unitOfWork.CarRepository.Update(car);
-            unitOfWork.Complete();
-
-            var result = mapper.Map<Car, CarResource>(car);
-
-            return Ok(result);
+            return Ok(carResource);
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteCar(int id)
         {
-            var car = unitOfWork.CarRepository.GetCar(id);
+            var car = carService.GetCar(id);
 
-            if(car == null)
-            {
-                return NotFound();
-            }
-
-            unitOfWork.CarRepository.Remove(car);
-            unitOfWork.Complete();
+            carService.DeleteCar(id);
 
             return Ok(car);
         }
